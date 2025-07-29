@@ -48,10 +48,8 @@ const Home: React.FC = () => {
     const fetchData = async () => {
       try {
         const [profileRes, projectsRes] = await Promise.all([
-          fetch("https://portfolio-5y49.onrender.com/api/profile"),
-          fetch(
-            "https://portfolio-5y49.onrender.com/api/projects?featured=true"
-          ),
+          fetch("http://localhost:3001/api/profile"),
+          fetch("http://localhost:3001/api/projects?featured=true"),
         ]);
 
         const profileData = await profileRes.json();
@@ -181,7 +179,7 @@ const Home: React.FC = () => {
 
             {/* Profile Image */}
             <motion.div
-              className="flex justify-center lg:justify-end"
+              className="hidden md:flex justify-center lg:justify-end"
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
