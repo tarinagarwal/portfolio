@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 import PageTransition from "../components/PageTransition";
 import LoadingSpinner from "../components/LoadingSpinner";
 import SkeletonLoader from "../components/SkeletonLoader";
+import Spline from "@splinetool/react-spline";
 
 interface Profile {
   name: string;
@@ -191,11 +192,12 @@ const Home: React.FC = () => {
               ) : profile ? (
                 <div className="relative">
                   <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full opacity-20 blur-2xl transform scale-110"></div>
-                  <img
+                  {/* <img
                     src={profile.avatar_url}
                     alt={profile.name}
                     className="relative w-80 h-80 rounded-full object-cover border-4 border-gray-700 shadow-2xl"
-                  />
+                  /> */}
+                  <Spline scene="https://prod.spline.design/SqdJqi-TwKVKAbeF/scene.splinecode" />
                 </div>
               ) : null}
             </motion.div>
