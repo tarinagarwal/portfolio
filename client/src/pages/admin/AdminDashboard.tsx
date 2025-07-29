@@ -11,6 +11,12 @@ import {
   Calendar,
   LogOut,
   Mail,
+  Database,
+  Wifi,
+  WifiOff,
+  AlertTriangle,
+  CheckCircle,
+  Clock,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
@@ -25,8 +31,20 @@ interface DashboardStats {
   featuredProjects: number;
 }
 
+interface ConnectionStatus {
+  type: "local" | "cloud";
+  isConnected: boolean;
+  isHealthy: boolean;
+  retries: number;
+  hasHeartbeat: boolean;
+  lastError?: string;
+  responseTime?: number;
+  timestamp: string;
+}
 const AdminDashboard: React.FC = () => {
   const [stats, setStats] = useState<DashboardStats | null>(null);
+  const [connectionStatus, setConnectionStatus] =
+    useState<ConnectionStatus | null>(null);
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState<any>(null);
   const navigate = useNavigate();
@@ -42,18 +60,24 @@ const AdminDashboard: React.FC = () => {
 
     setUser(JSON.parse(userData));
     fetchDashboardStats();
+    fetchConnectionStatus();
 
     // Set up interval to refresh stats every 30 seconds
     const interval = setInterval(fetchDashboardStats, 30000);
+    // Set up interval to refresh connection status every 5 seconds
+    const connectionInterval = setInterval(fetchConnectionStatus, 5000);
 
-    return () => clearInterval(interval);
+    return () => {
+      clearInterval(interval);
+      clearInterval(connectionInterval);
+    };
   }, [navigate]);
 
   const fetchDashboardStats = async () => {
     try {
       const token = localStorage.getItem("adminToken");
       const response = await fetch(
-        "https://portfolio-5y49.onrender.com/api/admin/dashboard/stats",
+        "http://localhost:3001/api/admin/dashboard/stats",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -74,6 +98,27 @@ const AdminDashboard: React.FC = () => {
     }
   };
 
+  const fetchConnectionStatus = async () => {
+    try {
+      const token = localStorage.getItem("adminToken");
+      const response = await fetch(
+        "http://localhost:3001/api/admin/dashboard/connection-status",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        setConnectionStatus(data);
+      }
+    } catch (error) {
+      // Silently handle connection status errors
+      console.error("Failed to fetch connection status:", error);
+    }
+  };
   const handleLogout = () => {
     localStorage.removeItem("adminToken");
     localStorage.removeItem("adminUser");
@@ -81,6 +126,25 @@ const AdminDashboard: React.FC = () => {
     navigate("/admin/login");
   };
 
+  const getConnectionStatusColor = (status: ConnectionStatus | null) => {
+    if (!status) return "bg-gray-500";
+    if (!status.isConnected) return "bg-red-500";
+    if (!status.isHealthy) return "bg-yellow-500";
+    return "bg-green-500";
+  };
+
+  const getConnectionStatusText = (status: ConnectionStatus | null) => {
+    if (!status) return "Unknown";
+    if (!status.isConnected) return "Disconnected";
+    if (!status.isHealthy) return "Unhealthy";
+    return "Connected";
+  };
+
+  const getConnectionIcon = (status: ConnectionStatus | null) => {
+    if (!status || !status.isConnected) return WifiOff;
+    if (!status.isHealthy) return AlertTriangle;
+    return status.type === "cloud" ? Wifi : Database;
+  };
   const statCards = [
     {
       title: "Total Projects",
@@ -183,13 +247,55 @@ const AdminDashboard: React.FC = () => {
               </div>
             </div>
 
-            <button
-              onClick={handleLogout}
-              className="flex items-center space-x-2 px-4 py-2 bg-red-500/20 text-red-400 rounded-lg hover:bg-red-500/30 transition-colors duration-200"
-            >
-              <LogOut size={18} />
-              <span>Logout</span>
-            </button>
+            <div className="flex items-center space-x-4">
+              {/* Connection Status Indicator */}
+              {connectionStatus && (
+                <div className="flex items-center space-x-2 px-3 py-2 bg-gray-800/50 rounded-lg border border-gray-700">
+                  <div className="flex items-center space-x-2">
+                    {(() => {
+                      const IconComponent = getConnectionIcon(connectionStatus);
+                      return (
+                        <IconComponent className="w-4 h-4 text-gray-300" />
+                      );
+                    })()}
+                    <div
+                      className={`w-2 h-2 rounded-full ${getConnectionStatusColor(
+                        connectionStatus
+                      )} animate-pulse`}
+                    ></div>
+                  </div>
+                  <div className="text-xs">
+                    <div className="text-gray-300 font-medium">
+                      {connectionStatus.type === "cloud"
+                        ? "SQLiteCloud"
+                        : "Local SQLite"}
+                    </div>
+                    <div
+                      className={`${
+                        connectionStatus.isHealthy
+                          ? "text-green-400"
+                          : "text-red-400"
+                      }`}
+                    >
+                      {getConnectionStatusText(connectionStatus)}
+                      {connectionStatus.responseTime && (
+                        <span className="text-gray-400 ml-1">
+                          ({connectionStatus.responseTime}ms)
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              <button
+                onClick={handleLogout}
+                className="flex items-center space-x-2 px-4 py-2 bg-red-500/20 text-red-400 rounded-lg hover:bg-red-500/30 transition-colors duration-200"
+              >
+                <LogOut size={18} />
+                <span>Logout</span>
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -287,6 +393,116 @@ const AdminDashboard: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.5 }}
         >
+          {/* Database Connection Details */}
+          <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl p-6">
+            <h3 className="text-xl font-bold text-white mb-4 flex items-center">
+              <Database className="w-5 h-5 mr-2 text-purple-400" />
+              Database Connection
+            </h3>
+            <div className="space-y-4">
+              {connectionStatus ? (
+                <>
+                  <div className="flex items-center justify-between">
+                    <span className="text-gray-300">Database Type</span>
+                    <div className="flex items-center">
+                      <span className="text-purple-400 text-sm font-medium">
+                        {connectionStatus.type === "cloud"
+                          ? "SQLiteCloud"
+                          : "Local SQLite"}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-gray-300">Connection Status</span>
+                    <div className="flex items-center">
+                      <div
+                        className={`w-2 h-2 rounded-full mr-2 ${getConnectionStatusColor(
+                          connectionStatus
+                        )}`}
+                      ></div>
+                      <span
+                        className={`text-sm ${
+                          connectionStatus.isHealthy
+                            ? "text-green-400"
+                            : "text-red-400"
+                        }`}
+                      >
+                        {getConnectionStatusText(connectionStatus)}
+                      </span>
+                    </div>
+                  </div>
+                  {connectionStatus.responseTime && (
+                    <div className="flex items-center justify-between">
+                      <span className="text-gray-300">Response Time</span>
+                      <span className="text-blue-400 text-sm">
+                        {connectionStatus.responseTime}ms
+                      </span>
+                    </div>
+                  )}
+                  {connectionStatus.type === "cloud" && (
+                    <>
+                      <div className="flex items-center justify-between">
+                        <span className="text-gray-300">Heartbeat</span>
+                        <div className="flex items-center">
+                          <div
+                            className={`w-2 h-2 rounded-full mr-2 ${
+                              connectionStatus.hasHeartbeat
+                                ? "bg-green-400"
+                                : "bg-red-400"
+                            }`}
+                          ></div>
+                          <span
+                            className={`text-sm ${
+                              connectionStatus.hasHeartbeat
+                                ? "text-green-400"
+                                : "text-red-400"
+                            }`}
+                          >
+                            {connectionStatus.hasHeartbeat
+                              ? "Active"
+                              : "Inactive"}
+                          </span>
+                        </div>
+                      </div>
+                      {connectionStatus.retries > 0 && (
+                        <div className="flex items-center justify-between">
+                          <span className="text-gray-300">Retry Attempts</span>
+                          <span className="text-yellow-400 text-sm">
+                            {connectionStatus.retries}
+                          </span>
+                        </div>
+                      )}
+                    </>
+                  )}
+                  {connectionStatus.lastError && (
+                    <div className="mt-4 p-3 bg-red-500/10 border border-red-500/20 rounded-lg">
+                      <div className="flex items-center mb-1">
+                        <AlertTriangle className="w-4 h-4 text-red-400 mr-2" />
+                        <span className="text-red-400 text-sm font-medium">
+                          Last Error
+                        </span>
+                      </div>
+                      <p className="text-red-300 text-xs">
+                        {connectionStatus.lastError}
+                      </p>
+                    </div>
+                  )}
+                  <div className="text-xs text-gray-500 mt-4">
+                    Last updated:{" "}
+                    {new Date(connectionStatus.timestamp).toLocaleTimeString()}
+                  </div>
+                </>
+              ) : (
+                <div className="flex items-center justify-center py-8">
+                  <LoadingSpinner size="sm" className="mr-2" />
+                  <span className="text-gray-400">
+                    Loading connection status...
+                  </span>
+                </div>
+              )}
+            </div>
+          </div>
+
           {/* System Status */}
           <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl p-6">
             <h3 className="text-xl font-bold text-white mb-4">System Status</h3>
@@ -294,8 +510,22 @@ const AdminDashboard: React.FC = () => {
               <div className="flex items-center justify-between">
                 <span className="text-gray-300">Database</span>
                 <div className="flex items-center">
-                  <div className="w-2 h-2 bg-green-400 rounded-full mr-2"></div>
-                  <span className="text-green-400 text-sm">Online</span>
+                  <div
+                    className={`w-2 h-2 rounded-full mr-2 ${
+                      connectionStatus?.isHealthy
+                        ? "bg-green-400"
+                        : "bg-red-400"
+                    }`}
+                  ></div>
+                  <span
+                    className={`text-sm ${
+                      connectionStatus?.isHealthy
+                        ? "text-green-400"
+                        : "text-red-400"
+                    }`}
+                  >
+                    {connectionStatus?.isHealthy ? "Online" : "Offline"}
+                  </span>
                 </div>
               </div>
               <div className="flex items-center justify-between">
@@ -311,31 +541,6 @@ const AdminDashboard: React.FC = () => {
                   <div className="w-2 h-2 bg-green-400 rounded-full mr-2"></div>
                   <span className="text-green-400 text-sm">Running</span>
                 </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Quick Stats */}
-          <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl p-6">
-            <h3 className="text-xl font-bold text-white mb-4">
-              Portfolio Health
-            </h3>
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <span className="text-gray-300">Profile Completion</span>
-                <span className="text-green-400 font-semibold">100%</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-gray-300">Featured Projects</span>
-                <span className="text-purple-400 font-semibold">
-                  {stats?.featuredProjects || 0}
-                </span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-gray-300">Last Updated</span>
-                <span className="text-gray-400 text-sm">
-                  {new Date().toLocaleDateString()}
-                </span>
               </div>
             </div>
           </div>

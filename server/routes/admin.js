@@ -122,6 +122,49 @@ router.get(
   }
 );
 
+// Database connection status
+router.get(
+  "/dashboard/connection-status",
+  authenticateToken,
+  requireAdmin,
+  async (req, res) => {
+    try {
+      const connectionInfo = db.getConnectionInfo();
+
+      // Test connection with a simple query
+      let isHealthy = false;
+      let lastError = null;
+      let responseTime = null;
+
+      try {
+        const startTime = Date.now();
+        await db.prepare("SELECT 1 as test").get();
+        responseTime = Date.now() - startTime;
+        isHealthy = true;
+      } catch (error) {
+        lastError = error.message;
+        isHealthy = false;
+      }
+
+      res.json({
+        ...connectionInfo,
+        isHealthy,
+        lastError,
+        responseTime,
+        timestamp: new Date().toISOString(),
+      });
+    } catch (error) {
+      console.error("Error in /dashboard/connection-status route:", error);
+      res.status(500).json({
+        error: error.message,
+        type: "unknown",
+        isConnected: false,
+        isHealthy: false,
+        timestamp: new Date().toISOString(),
+      });
+    }
+  }
+);
 // Profile management
 router.get("/profile", authenticateToken, requireAdmin, async (req, res) => {
   try {
