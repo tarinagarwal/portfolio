@@ -53,7 +53,7 @@ const AdminDashboard: React.FC = () => {
     try {
       const token = localStorage.getItem("adminToken");
       const response = await fetch(
-        "http://localhost:3001/api/admin/dashboard/stats",
+        "https://portfolio-5y49.onrender.com/api/admin/dashboard/stats",
         {
           headers: {
             Authorization: `Bearer ${token}`,

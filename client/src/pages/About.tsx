@@ -25,7 +25,9 @@ const About: React.FC = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const response = await fetch("http://localhost:3001/api/profile");
+        const response = await fetch(
+          "https://portfolio-5y49.onrender.com/api/profile"
+        );
         const data = await response.json();
         setProfile(data);
       } catch (error) {

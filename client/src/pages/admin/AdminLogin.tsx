@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Mail, Lock, Send, CheckCircle, AlertCircle } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
-import toast from 'react-hot-toast';
-import LoadingSpinner from '../../components/LoadingSpinner';
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import { Mail, Lock, Send, CheckCircle, AlertCircle } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+import LoadingSpinner from "../../components/LoadingSpinner";
 
 const AdminLogin: React.FC = () => {
-  const [step, setStep] = useState<'username' | 'otp'>('username');
-  const [username, setUsername] = useState('');
-  const [otp, setOtp] = useState('');
+  const [step, setStep] = useState<"username" | "otp">("username");
+  const [username, setUsername] = useState("");
+  const [otp, setOtp] = useState("");
   const [loading, setLoading] = useState(false);
-  const [maskedEmail, setMaskedEmail] = useState('');
+  const [maskedEmail, setMaskedEmail] = useState("");
   const navigate = useNavigate();
 
   const requestOTP = async (e: React.FormEvent) => {
@@ -18,25 +18,28 @@ const AdminLogin: React.FC = () => {
     setLoading(true);
 
     try {
-      const response = await fetch('http://localhost:3001/api/admin/login/request-otp', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username }),
-      });
+      const response = await fetch(
+        "https://portfolio-5y49.onrender.com/api/admin/login/request-otp",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ username }),
+        }
+      );
 
       const data = await response.json();
 
       if (response.ok) {
         setMaskedEmail(data.email);
-        setStep('otp');
-        toast.success('OTP sent to your email!');
+        setStep("otp");
+        toast.success("OTP sent to your email!");
       } else {
-        toast.error(data.error || 'Failed to send OTP');
+        toast.error(data.error || "Failed to send OTP");
       }
     } catch (error) {
-      toast.error('Network error. Please try again.');
+      toast.error("Network error. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -47,26 +50,29 @@ const AdminLogin: React.FC = () => {
     setLoading(true);
 
     try {
-      const response = await fetch('http://localhost:3001/api/admin/login/verify-otp', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username, otp }),
-      });
+      const response = await fetch(
+        "https://portfolio-5y49.onrender.com/api/admin/login/verify-otp",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ username, otp }),
+        }
+      );
 
       const data = await response.json();
 
       if (response.ok) {
-        localStorage.setItem('adminToken', data.token);
-        localStorage.setItem('adminUser', JSON.stringify(data.user));
-        toast.success('Login successful!');
-        navigate('/admin/dashboard');
+        localStorage.setItem("adminToken", data.token);
+        localStorage.setItem("adminUser", JSON.stringify(data.user));
+        toast.success("Login successful!");
+        navigate("/admin/dashboard");
       } else {
-        toast.error(data.error || 'Invalid OTP');
+        toast.error(data.error || "Invalid OTP");
       }
     } catch (error) {
-      toast.error('Network error. Please try again.');
+      toast.error("Network error. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -91,7 +97,9 @@ const AdminLogin: React.FC = () => {
           </motion.div>
           <h1 className="text-3xl font-bold text-white mb-2">Admin Portal</h1>
           <p className="text-gray-400">
-            {step === 'username' ? 'Enter your credentials' : 'Enter the OTP sent to your email'}
+            {step === "username"
+              ? "Enter your credentials"
+              : "Enter the OTP sent to your email"}
           </p>
         </div>
 
@@ -102,10 +110,13 @@ const AdminLogin: React.FC = () => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6, delay: 0.1 }}
         >
-          {step === 'username' ? (
+          {step === "username" ? (
             <form onSubmit={requestOTP} className="space-y-6">
               <div>
-                <label htmlFor="username" className="block text-sm font-medium text-gray-300 mb-2">
+                <label
+                  htmlFor="username"
+                  className="block text-sm font-medium text-gray-300 mb-2"
+                >
                   Username
                 </label>
                 <div className="relative">
@@ -149,12 +160,16 @@ const AdminLogin: React.FC = () => {
                   <span className="text-green-400 font-medium">OTP Sent!</span>
                 </div>
                 <p className="text-gray-400 text-sm">
-                  Check your email: <span className="text-purple-400">{maskedEmail}</span>
+                  Check your email:{" "}
+                  <span className="text-purple-400">{maskedEmail}</span>
                 </p>
               </div>
 
               <div>
-                <label htmlFor="otp" className="block text-sm font-medium text-gray-300 mb-2">
+                <label
+                  htmlFor="otp"
+                  className="block text-sm font-medium text-gray-300 mb-2"
+                >
                   One-Time Password
                 </label>
                 <div className="relative">
@@ -162,7 +177,9 @@ const AdminLogin: React.FC = () => {
                     type="text"
                     id="otp"
                     value={otp}
-                    onChange={(e) => setOtp(e.target.value.replace(/\D/g, '').slice(0, 6))}
+                    onChange={(e) =>
+                      setOtp(e.target.value.replace(/\D/g, "").slice(0, 6))
+                    }
                     className="w-full px-4 py-3 pl-12 bg-gray-700/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 text-center text-2xl font-mono tracking-widest"
                     placeholder="000000"
                     maxLength={6}
@@ -176,8 +193,8 @@ const AdminLogin: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => {
-                    setStep('username');
-                    setOtp('');
+                    setStep("username");
+                    setOtp("");
                   }}
                   className="flex-1 px-4 py-3 border border-gray-600 text-gray-300 font-semibold rounded-lg hover:bg-gray-700 hover:border-gray-500 transition-all duration-200"
                 >
@@ -195,7 +212,7 @@ const AdminLogin: React.FC = () => {
                       Verifying...
                     </div>
                   ) : (
-                    'Verify & Login'
+                    "Verify & Login"
                   )}
                 </motion.button>
               </div>
@@ -208,7 +225,10 @@ const AdminLogin: React.FC = () => {
               <AlertCircle className="w-5 h-5 text-blue-400 mr-2 mt-0.5 flex-shrink-0" />
               <div className="text-sm text-blue-300">
                 <p className="font-medium mb-1">Security Notice</p>
-                <p>OTP expires in 5 minutes. Don't share your credentials with anyone.</p>
+                <p>
+                  OTP expires in 5 minutes. Don't share your credentials with
+                  anyone.
+                </p>
               </div>
             </div>
           </div>

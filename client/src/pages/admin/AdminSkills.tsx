@@ -99,11 +99,14 @@ const AdminSkills: React.FC = () => {
   const fetchSkills = async () => {
     try {
       const token = localStorage.getItem("adminToken");
-      const response = await fetch("http://localhost:3001/api/admin/skills", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        "https://portfolio-5y49.onrender.com/api/admin/skills",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       if (response.ok) {
         const data = await response.json();
@@ -163,8 +166,8 @@ const AdminSkills: React.FC = () => {
     try {
       const token = localStorage.getItem("adminToken");
       const url = editingSkill
-        ? `http://localhost:3001/api/admin/skills/${editingSkill.id}`
-        : "http://localhost:3001/api/admin/skills";
+        ? `https://portfolio-5y49.onrender.com/api/admin/skills/${editingSkill.id}`
+        : "https://portfolio-5y49.onrender.com/api/admin/skills";
 
       const method = editingSkill ? "PUT" : "POST";
 
@@ -197,7 +200,7 @@ const AdminSkills: React.FC = () => {
     try {
       const token = localStorage.getItem("adminToken");
       const response = await fetch(
-        `http://localhost:3001/api/admin/skills/${id}`,
+        `https://portfolio-5y49.onrender.com/api/admin/skills/${id}`,
         {
           method: "DELETE",
           headers: {

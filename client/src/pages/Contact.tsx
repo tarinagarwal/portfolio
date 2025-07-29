@@ -51,7 +51,9 @@ const Contact: React.FC = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const response = await fetch("http://localhost:3001/api/profile");
+        const response = await fetch(
+          "https://portfolio-5y49.onrender.com/api/profile"
+        );
         const data = await response.json();
         setProfile(data);
       } catch (error) {
@@ -79,13 +81,16 @@ const Contact: React.FC = () => {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch("http://localhost:3001/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        "https://portfolio-5y49.onrender.com/api/contact",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
 
       if (response.ok) {
         setIsSubmitted(true);

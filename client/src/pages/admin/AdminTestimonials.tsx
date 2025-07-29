@@ -56,7 +56,7 @@ const AdminTestimonials: React.FC = () => {
     try {
       const token = localStorage.getItem("adminToken");
       const response = await fetch(
-        "http://localhost:3001/api/admin/testimonials",
+        "https://portfolio-5y49.onrender.com/api/admin/testimonials",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -124,8 +124,8 @@ const AdminTestimonials: React.FC = () => {
     try {
       const token = localStorage.getItem("adminToken");
       const url = editingTestimonial
-        ? `http://localhost:3001/api/admin/testimonials/${editingTestimonial.id}`
-        : "http://localhost:3001/api/admin/testimonials";
+        ? `https://portfolio-5y49.onrender.com/api/admin/testimonials/${editingTestimonial.id}`
+        : "https://portfolio-5y49.onrender.com/api/admin/testimonials";
 
       const method = editingTestimonial ? "PUT" : "POST";
 
@@ -160,7 +160,7 @@ const AdminTestimonials: React.FC = () => {
     try {
       const token = localStorage.getItem("adminToken");
       const response = await fetch(
-        `http://localhost:3001/api/admin/testimonials/${id}`,
+        `https://portfolio-5y49.onrender.com/api/admin/testimonials/${id}`,
         {
           method: "DELETE",
           headers: {

@@ -60,11 +60,14 @@ const AdminProfile: React.FC = () => {
   const fetchProfile = async () => {
     try {
       const token = localStorage.getItem("adminToken");
-      const response = await fetch("http://localhost:3001/api/admin/profile", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        "https://portfolio-5y49.onrender.com/api/admin/profile",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       if (response.ok) {
         const data = await response.json();
@@ -106,14 +109,17 @@ const AdminProfile: React.FC = () => {
 
     try {
       const token = localStorage.getItem("adminToken");
-      const response = await fetch("http://localhost:3001/api/admin/profile", {
-        method: "PUT",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        "https://portfolio-5y49.onrender.com/api/admin/profile",
+        {
+          method: "PUT",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
 
       if (response.ok) {
         toast.success("Profile updated successfully!");

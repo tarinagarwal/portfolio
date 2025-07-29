@@ -71,7 +71,7 @@ const AdminContacts: React.FC = () => {
     try {
       const token = localStorage.getItem("adminToken");
       const response = await fetch(
-        `http://localhost:3001/api/admin/contacts?status=${statusFilter}`,
+        `https://portfolio-5y49.onrender.com/api/admin/contacts?status=${statusFilter}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -96,7 +96,7 @@ const AdminContacts: React.FC = () => {
     try {
       const token = localStorage.getItem("adminToken");
       const response = await fetch(
-        "http://localhost:3001/api/admin/dashboard/contact-stats",
+        "https://portfolio-5y49.onrender.com/api/admin/dashboard/contact-stats",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -140,7 +140,7 @@ const AdminContacts: React.FC = () => {
     try {
       const token = localStorage.getItem("adminToken");
       const response = await fetch(
-        `http://localhost:3001/api/admin/contacts/${id}`,
+        `https://portfolio-5y49.onrender.com/api/admin/contacts/${id}`,
         {
           method: "PUT",
           headers: {
@@ -190,7 +190,7 @@ const AdminContacts: React.FC = () => {
     try {
       const token = localStorage.getItem("adminToken");
       const response = await fetch(
-        `http://localhost:3001/api/admin/contacts/${id}`,
+        `https://portfolio-5y49.onrender.com/api/admin/contacts/${id}`,
         {
           method: "DELETE",
           headers: {
@@ -639,4 +639,3 @@ const AdminContacts: React.FC = () => {
 };
 
 export default AdminContacts;
-    

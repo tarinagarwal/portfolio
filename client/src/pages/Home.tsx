@@ -48,8 +48,10 @@ const Home: React.FC = () => {
     const fetchData = async () => {
       try {
         const [profileRes, projectsRes] = await Promise.all([
-          fetch("http://localhost:3001/api/profile"),
-          fetch("http://localhost:3001/api/projects?featured=true"),
+          fetch("https://portfolio-5y49.onrender.com/api/profile"),
+          fetch(
+            "https://portfolio-5y49.onrender.com/api/projects?featured=true"
+          ),
         ]);
 
         const profileData = await profileRes.json();

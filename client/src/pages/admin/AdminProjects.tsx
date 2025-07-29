@@ -66,11 +66,14 @@ const AdminProjects: React.FC = () => {
   const fetchProjects = async () => {
     try {
       const token = localStorage.getItem("adminToken");
-      const response = await fetch("http://localhost:3001/api/admin/projects", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        "https://portfolio-5y49.onrender.com/api/admin/projects",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       if (response.ok) {
         const data = await response.json();
@@ -186,8 +189,8 @@ const AdminProjects: React.FC = () => {
     try {
       const token = localStorage.getItem("adminToken");
       const url = editingProject
-        ? `http://localhost:3001/api/admin/projects/${editingProject.id}`
-        : "http://localhost:3001/api/admin/projects";
+        ? `https://portfolio-5y49.onrender.com/api/admin/projects/${editingProject.id}`
+        : "https://portfolio-5y49.onrender.com/api/admin/projects";
 
       const method = editingProject ? "PUT" : "POST";
 
@@ -223,7 +226,7 @@ const AdminProjects: React.FC = () => {
     try {
       const token = localStorage.getItem("adminToken");
       const response = await fetch(
-        `http://localhost:3001/api/admin/projects/${id}`,
+        `https://portfolio-5y49.onrender.com/api/admin/projects/${id}`,
         {
           method: "DELETE",
           headers: {

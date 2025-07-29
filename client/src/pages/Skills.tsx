@@ -27,7 +27,9 @@ const Skills: React.FC = () => {
   useEffect(() => {
     const fetchSkills = async () => {
       try {
-        const response = await fetch("http://localhost:3001/api/skills");
+        const response = await fetch(
+          "https://portfolio-5y49.onrender.com/api/skills"
+        );
         const data = await response.json();
         setSkills(data);
       } catch (error) {

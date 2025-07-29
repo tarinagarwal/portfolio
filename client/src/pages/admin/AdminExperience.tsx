@@ -61,7 +61,7 @@ const AdminExperience: React.FC = () => {
     try {
       const token = localStorage.getItem("adminToken");
       const response = await fetch(
-        "http://localhost:3001/api/admin/experience",
+        "https://portfolio-5y49.onrender.com/api/admin/experience",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -142,8 +142,8 @@ const AdminExperience: React.FC = () => {
     try {
       const token = localStorage.getItem("adminToken");
       const url = editingExperience
-        ? `http://localhost:3001/api/admin/experience/${editingExperience.id}`
-        : "http://localhost:3001/api/admin/experience";
+        ? `https://portfolio-5y49.onrender.com/api/admin/experience/${editingExperience.id}`
+        : "https://portfolio-5y49.onrender.com/api/admin/experience";
 
       const method = editingExperience ? "PUT" : "POST";
 
@@ -184,7 +184,7 @@ const AdminExperience: React.FC = () => {
     try {
       const token = localStorage.getItem("adminToken");
       const response = await fetch(
-        `http://localhost:3001/api/admin/experience/${id}`,
+        `https://portfolio-5y49.onrender.com/api/admin/experience/${id}`,
         {
           method: "DELETE",
           headers: {
