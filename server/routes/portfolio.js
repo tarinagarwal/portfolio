@@ -4,17 +4,19 @@ import db from "../database.js";
 const router = express.Router();
 
 // Get profile information
-router.get("/profile", (req, res) => {
+router.get("/profile", async (req, res) => {
   try {
-    const profile = db.prepare("SELECT * FROM profile WHERE id = 1").get();
+    const stmt = db.prepare("SELECT * FROM profile WHERE id = 1");
+    const profile = await stmt.get();
     res.json(profile);
   } catch (error) {
+    console.error("Error in /profile route:", error);
     res.status(500).json({ error: error.message });
   }
 });
 
 // Get all projects
-router.get("/projects", (req, res) => {
+router.get("/projects", async (req, res) => {
   try {
     const { featured } = req.query;
 
@@ -26,7 +28,15 @@ router.get("/projects", (req, res) => {
         "SELECT * FROM projects WHERE featured = 1 ORDER BY created_at DESC";
     }
 
-    const projects = db.prepare(query).all();
+    const stmt = db.prepare(query);
+    const projects = await stmt.all();
+
+    // Ensure projects is an array
+    if (!Array.isArray(projects)) {
+      console.error("Projects query did not return an array:", projects);
+      return res.status(500).json({ error: "Database query error" });
+    }
+
     const formattedProjects = projects.map((project) => ({
       ...project,
       technologies: project.technologies.split(", "),
@@ -35,16 +45,16 @@ router.get("/projects", (req, res) => {
 
     res.json(formattedProjects);
   } catch (error) {
+    console.error("Error in /projects route:", error);
     res.status(500).json({ error: error.message });
   }
 });
 
 // Get project by ID
-router.get("/projects/:id", (req, res) => {
+router.get("/projects/:id", async (req, res) => {
   try {
-    const project = db
-      .prepare("SELECT * FROM projects WHERE id = ?")
-      .get(req.params.id);
+    const stmt = db.prepare("SELECT * FROM projects WHERE id = ?");
+    const project = await stmt.get(req.params.id);
     if (!project) {
       return res.status(404).json({ error: "Project not found" });
     }
@@ -57,42 +67,70 @@ router.get("/projects/:id", (req, res) => {
 
     res.json(formattedProject);
   } catch (error) {
+    console.error("Error in /projects/:id route:", error);
     res.status(500).json({ error: error.message });
   }
 });
 
 // Get all skills
-router.get("/skills", (req, res) => {
+router.get("/skills", async (req, res) => {
   try {
-    const skills = db
-      .prepare("SELECT * FROM skills ORDER BY category, proficiency DESC")
-      .all();
+    const stmt = db.prepare(
+      "SELECT * FROM skills ORDER BY category, proficiency DESC"
+    );
+    const skills = await stmt.all();
+
+    // Ensure skills is an array
+    if (!Array.isArray(skills)) {
+      console.error("Skills query did not return an array:", skills);
+      return res.status(500).json({ error: "Database query error" });
+    }
+
     res.json(skills);
   } catch (error) {
+    console.error("Error in /skills route:", error);
     res.status(500).json({ error: error.message });
   }
 });
 
 // Get skills by category
-router.get("/skills/category/:category", (req, res) => {
+router.get("/skills/category/:category", async (req, res) => {
   try {
-    const skills = db
-      .prepare(
-        "SELECT * FROM skills WHERE category = ? ORDER BY proficiency DESC"
-      )
-      .all(req.params.category);
+    const stmt = db.prepare(
+      "SELECT * FROM skills WHERE category = ? ORDER BY proficiency DESC"
+    );
+    const skills = await stmt.all(req.params.category);
+
+    // Ensure skills is an array
+    if (!Array.isArray(skills)) {
+      console.error(
+        "Skills by category query did not return an array:",
+        skills
+      );
+      return res.status(500).json({ error: "Database query error" });
+    }
+
     res.json(skills);
   } catch (error) {
+    console.error("Error in /skills/category/:category route:", error);
     res.status(500).json({ error: error.message });
   }
 });
 
 // Get all experience
-router.get("/experience", (req, res) => {
+router.get("/experience", async (req, res) => {
   try {
-    const experience = db
-      .prepare("SELECT * FROM experience ORDER BY start_date DESC")
-      .all();
+    const stmt = db.prepare(
+      "SELECT * FROM experience ORDER BY start_date DESC"
+    );
+    const experience = await stmt.all();
+
+    // Ensure experience is an array
+    if (!Array.isArray(experience)) {
+      console.error("Experience query did not return an array:", experience);
+      return res.status(500).json({ error: "Database query error" });
+    }
+
     const formattedExperience = experience.map((exp) => ({
       ...exp,
       technologies: exp.technologies.split(", "),
@@ -100,24 +138,37 @@ router.get("/experience", (req, res) => {
 
     res.json(formattedExperience);
   } catch (error) {
+    console.error("Error in /experience route:", error);
     res.status(500).json({ error: error.message });
   }
 });
 
 // Get all testimonials
-router.get("/testimonials", (req, res) => {
+router.get("/testimonials", async (req, res) => {
   try {
-    const testimonials = db
-      .prepare("SELECT * FROM testimonials ORDER BY rating DESC, id DESC")
-      .all();
+    const stmt = db.prepare(
+      "SELECT * FROM testimonials ORDER BY rating DESC, id DESC"
+    );
+    const testimonials = await stmt.all();
+
+    // Ensure testimonials is an array
+    if (!Array.isArray(testimonials)) {
+      console.error(
+        "Testimonials query did not return an array:",
+        testimonials
+      );
+      return res.status(500).json({ error: "Database query error" });
+    }
+
     res.json(testimonials);
   } catch (error) {
+    console.error("Error in /testimonials route:", error);
     res.status(500).json({ error: error.message });
   }
 });
 
 // Contact form submission
-router.post("/contact", (req, res) => {
+router.post("/contact", async (req, res) => {
   try {
     const { name, email, subject, message } = req.body;
 
@@ -127,7 +178,7 @@ router.post("/contact", (req, res) => {
       VALUES (?, ?, ?, ?)
     `);
 
-    const result = stmt.run(name, email, subject, message);
+    const result = await stmt.run(name, email, subject, message);
 
     // Import email service dynamically to avoid circular dependency
     import("../services/emailService.js")
