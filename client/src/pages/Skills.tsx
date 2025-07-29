@@ -151,7 +151,7 @@ const Skills: React.FC = () => {
                     </div>
 
                     {/* Skills Grid */}
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-6">
                       {categorySkills.map((skill, skillIndex) => {
                         const SkillIcon = getIconComponent(skill.icon);
 
@@ -181,13 +181,13 @@ const Skills: React.FC = () => {
                                   </p> */}
                                 </div>
                               </div>
-                              <span
+                              {/* <span
                                 className={`px-2 py-1 text-xs font-semibold rounded-full bg-gradient-to-r ${getProficiencyColor(
                                   skill.proficiency
                                 )} text-white`}
                               >
                                 {getProficiencyLabel(skill.proficiency)}
-                              </span>
+                              </span> */}
                             </div>
 
                             {/* Proficiency Bar */}
@@ -216,52 +216,6 @@ const Skills: React.FC = () => {
           )}
 
           {/* Skills Summary */}
-          <motion.div
-            className="mt-20 bg-gradient-to-r from-purple-900/50 to-blue-900/50 backdrop-blur-sm border border-gray-700 rounded-2xl p-8"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-          >
-            <div className="text-center mb-8">
-              <h3 className="text-2xl font-bold text-white mb-4">
-                Skills Overview
-              </h3>
-              <p className="text-gray-300">
-                A comprehensive look at my technical expertise and experience
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-8">
-              <div className="text-center">
-                <div className="text-3xl font-bold text-purple-400 mb-2">
-                  {skills.length}
-                </div>
-                <div className="text-gray-300">Total Skills</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-blue-400 mb-2">
-                  {Math.round(
-                    skills.reduce((acc, skill) => acc + skill.proficiency, 0) /
-                      skills.length
-                  )}
-                  %
-                </div>
-                <div className="text-gray-300">Average Proficiency</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-green-400 mb-2">
-                  {Math.round(
-                    skills.reduce(
-                      (acc, skill) => acc + skill.years_experience,
-                      0
-                    ) / skills.length
-                  )}
-                </div>
-                <div className="text-gray-300">Average Experience</div>
-              </div>
-            </div>
-          </motion.div>
         </div>
       </div>
     </PageTransition>

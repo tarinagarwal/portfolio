@@ -53,6 +53,8 @@ const AdminSkills: React.FC = () => {
     "Tools",
     "DevOps",
     "API",
+    "Languages",
+    "Game Dev",
   ];
   const icons = [
     "Code",
