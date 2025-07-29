@@ -29,10 +29,11 @@ app.use(
 // CORS configuration
 app.use(
   cors({
-    origin:
-      process.env.NODE_ENV === "production"
-        ? [process.env.FRONTEND_URL]
-        : ["http://localhost:5173", "http://localhost:3000"],
+    origin: [
+      "http://localhost:5173",
+      "http://localhost:3000",
+      "https://tarinagarwal.vercel.app",
+    ],
     credentials: true,
   })
 );
