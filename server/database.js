@@ -214,6 +214,7 @@ const createTables = async () => {
       description TEXT NOT NULL,
       long_description TEXT,
       technologies TEXT NOT NULL,
+      category TEXT,
       github_url TEXT,
       live_url TEXT,
       image_url TEXT,

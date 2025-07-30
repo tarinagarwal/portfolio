@@ -10,6 +10,7 @@ interface Project {
   description: string;
   long_description: string;
   technologies: string[];
+  category?: string;
   github_url: string;
   live_url: string;
   image_url: string;
@@ -49,8 +50,13 @@ const Portfolio: React.FC = () => {
     if (category === "All") {
       setFilteredProjects(projects);
     } else {
-      const filtered = projects.filter((project) =>
-        project.technologies.some((tech) => {
+      const filtered = projects.filter((project) => {
+        // If project has a category field, use it directly
+        if (project.category) {
+          return project.category === category;
+        }
+        // Fallback to technology-based filtering for backward compatibility
+        return project.technologies.some((tech) => {
           switch (category) {
             case "Frontend":
               return ["React", "Vue.js", "JavaScript", "TypeScript"].includes(
@@ -70,8 +76,8 @@ const Portfolio: React.FC = () => {
             default:
               return false;
           }
-        })
-      );
+        });
+      });
       setFilteredProjects(filtered);
     }
   };
@@ -178,16 +184,20 @@ const Portfolio: React.FC = () => {
                       </div>
 
                       <div className="flex items-center justify-between">
-                        <a
-                          href={project.live_url}
-                          className="inline-flex items-center text-purple-400 hover:text-purple-300 font-medium"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={(e) => e.stopPropagation()}
-                        >
-                          <ExternalLink size={16} className="mr-1" />
-                          View Live
-                        </a>
+                        <div className="flex space-x-3">
+                          {project.live_url && (
+                            <a
+                              href={project.live_url}
+                              className="text-purple-400 hover:text-purple-300 font-medium flex items-center"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              onClick={(e) => e.stopPropagation()}
+                            >
+                              <ExternalLink size={16} className="mr-1" />
+                              View Live
+                            </a>
+                          )}
+                        </div>
                         <a
                           href={project.github_url}
                           className="text-gray-400 hover:text-white transition-colors duration-200"
@@ -280,15 +290,17 @@ const Portfolio: React.FC = () => {
                 </div>
 
                 <div className="flex gap-4">
-                  <a
-                    href={selectedProject.live_url}
-                    className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-purple-500 to-blue-500 text-white font-semibold rounded-lg hover:from-purple-600 hover:to-blue-600 transition-all duration-200"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <ExternalLink className="mr-2" size={20} />
-                    View Live Demo
-                  </a>
+                  {selectedProject.live_url && (
+                    <a
+                      href={selectedProject.live_url}
+                      className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-purple-500 to-blue-500 text-white font-semibold rounded-lg hover:from-purple-600 hover:to-blue-600 transition-all duration-200"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <ExternalLink className="mr-2" size={20} />
+                      View Live Demo
+                    </a>
+                  )}
                   <a
                     href={selectedProject.github_url}
                     className="inline-flex items-center px-6 py-3 border border-gray-600 text-gray-300 font-semibold rounded-lg hover:bg-gray-700 hover:border-gray-500 transition-all duration-200"

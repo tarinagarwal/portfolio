@@ -248,6 +248,7 @@ router.post("/projects", authenticateToken, requireAdmin, async (req, res) => {
       description,
       long_description,
       technologies,
+      category,
       github_url,
       live_url,
       image_url,
@@ -255,8 +256,8 @@ router.post("/projects", authenticateToken, requireAdmin, async (req, res) => {
     } = req.body;
 
     const stmt = db.prepare(`
-      INSERT INTO projects (title, description, long_description, technologies, github_url, live_url, image_url, featured)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+      INSERT INTO projects (title, description, long_description, technologies, category, github_url, live_url, image_url, featured)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
     `);
 
     const result = await stmt.run(
@@ -264,6 +265,7 @@ router.post("/projects", authenticateToken, requireAdmin, async (req, res) => {
       description,
       long_description,
       Array.isArray(technologies) ? technologies.join(", ") : technologies,
+      category,
       github_url,
       live_url || null,
       image_url,
@@ -292,6 +294,7 @@ router.put(
         description,
         long_description,
         technologies,
+        category,
         github_url,
         live_url,
         image_url,
@@ -299,8 +302,8 @@ router.put(
       } = req.body;
 
       const stmt = db.prepare(`
-      UPDATE projects 
-      SET title = ?, description = ?, long_description = ?, technologies = ?, 
+      UPDATE projects
+      SET title = ?, description = ?, long_description = ?, technologies = ?, category = ?,
           github_url = ?, live_url = ?, image_url = ?, featured = ?
       WHERE id = ?
     `);
@@ -310,6 +313,7 @@ router.put(
         description,
         long_description,
         Array.isArray(technologies) ? technologies.join(", ") : technologies,
+        category,
         github_url,
         live_url || null,
         image_url,

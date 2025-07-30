@@ -37,6 +37,18 @@ const AdminProjects: React.FC = () => {
   const [editingProject, setEditingProject] = useState<Project | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [uploadingImage, setUploadingImage] = useState(false);
+  const [categories, setCategories] = useState<string[]>([
+    "Frontend",
+    "Full-Stack",
+    "Mobile",
+    "Backend",
+    "Game Development",
+    "AI/ML",
+    "Desktop",
+    "Web3/Blockchain",
+  ]);
+  const [newCategory, setNewCategory] = useState("");
+  const [showAddCategory, setShowAddCategory] = useState(false);
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -48,6 +60,7 @@ const AdminProjects: React.FC = () => {
     live_url: "",
     image_url: "",
     featured: false,
+    category: "",
   });
 
   // ImgBB API configuration
@@ -160,6 +173,7 @@ const AdminProjects: React.FC = () => {
         live_url: project.live_url,
         image_url: project.image_url,
         featured: project.featured,
+        category: project.category || "",
       });
     } else {
       setEditingProject(null);
@@ -172,6 +186,7 @@ const AdminProjects: React.FC = () => {
         live_url: "",
         image_url: "",
         featured: false,
+        category: "",
       });
     }
     setShowModal(true);
@@ -180,6 +195,16 @@ const AdminProjects: React.FC = () => {
   const closeModal = () => {
     setShowModal(false);
     setEditingProject(null);
+  };
+
+  const handleAddCategory = () => {
+    if (newCategory.trim() && !categories.includes(newCategory.trim())) {
+      setCategories((prev) => [...prev, newCategory.trim()]);
+      setFormData((prev) => ({ ...prev, category: newCategory.trim() }));
+      setNewCategory("");
+      setShowAddCategory(false);
+      toast.success("Category added!");
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -495,6 +520,69 @@ const AdminProjects: React.FC = () => {
                       </div>
                     )}
                   </div>
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-2">
+                  Category *
+                </label>
+                <div className="space-y-3">
+                  <select
+                    name="category"
+                    value={formData.category}
+                    onChange={handleInputChange}
+                    required
+                    className="w-full px-4 py-3 bg-gray-700/50 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  >
+                    <option value="">Select a category</option>
+                    {categories.map((category) => (
+                      <option key={category} value={category}>
+                        {category}
+                      </option>
+                    ))}
+                  </select>
+
+                  {!showAddCategory ? (
+                    <button
+                      type="button"
+                      onClick={() => setShowAddCategory(true)}
+                      className="text-purple-400 hover:text-purple-300 text-sm flex items-center"
+                    >
+                      <Plus size={16} className="mr-1" />
+                      Add new category
+                    </button>
+                  ) : (
+                    <div className="flex space-x-2">
+                      <input
+                        type="text"
+                        value={newCategory}
+                        onChange={(e) => setNewCategory(e.target.value)}
+                        placeholder="Enter new category"
+                        className="flex-1 px-3 py-2 bg-gray-700/50 border border-gray-600 rounded text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                        onKeyPress={(e) =>
+                          e.key === "Enter" && handleAddCategory()
+                        }
+                      />
+                      <button
+                        type="button"
+                        onClick={handleAddCategory}
+                        className="px-3 py-2 bg-purple-500 text-white rounded hover:bg-purple-600 transition-colors"
+                      >
+                        Add
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setShowAddCategory(false);
+                          setNewCategory("");
+                        }}
+                        className="px-3 py-2 bg-gray-600 text-white rounded hover:bg-gray-700 transition-colors"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  )}
                 </div>
               </div>
 
