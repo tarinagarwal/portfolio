@@ -426,6 +426,50 @@ const addSampleDataIfEmpty = async () => {
 
 await addSampleDataIfEmpty();
 
+// Add migration for existing projects table to add category column
+const addCategoryColumnIfNotExists = async () => {
+  try {
+    if (dbType === "cloud") {
+      // Check if category column exists
+      const result = await executeWithRetry(
+        () => db.sql("PRAGMA table_info(projects)"),
+        "check table info"
+      );
+
+      const normalizedResult = normalizeResult(result);
+      const columns = Array.isArray(normalizedResult)
+        ? normalizedResult
+        : [normalizedResult];
+      const hasCategoryColumn = columns.some((col) => col.name === "category");
+
+      if (!hasCategoryColumn) {
+        console.log("📝 Adding category column to projects table...");
+        await executeWithRetry(
+          () => db.sql("ALTER TABLE projects ADD COLUMN category TEXT"),
+          "add category column"
+        );
+        console.log("✅ Category column added successfully");
+      }
+    } else {
+      // For local SQLite, check if column exists
+      const tableInfo = db.prepare("PRAGMA table_info(projects)").all();
+      const hasCategoryColumn = tableInfo.some(
+        (col) => col.name === "category"
+      );
+
+      if (!hasCategoryColumn) {
+        console.log("📝 Adding category column to projects table...");
+        db.exec("ALTER TABLE projects ADD COLUMN category TEXT");
+        console.log("✅ Category column added successfully");
+      }
+    }
+  } catch (error) {
+    console.error("Error adding category column:", error);
+    // Don't throw error, just log it as the column might already exist
+  }
+};
+
+await addCategoryColumnIfNotExists();
 // Graceful shutdown
 process.on("SIGINT", () => {
   console.log("\n🔄 Shutting down gracefully...");

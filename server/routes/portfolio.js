@@ -41,6 +41,7 @@ router.get("/projects", async (req, res) => {
       ...project,
       technologies: project.technologies.split(", "),
       featured: Boolean(project.featured),
+      category: project.category || null,
     }));
 
     res.json(formattedProjects);
@@ -63,6 +64,7 @@ router.get("/projects/:id", async (req, res) => {
       ...project,
       technologies: project.technologies.split(", "),
       featured: Boolean(project.featured),
+      category: project.category || null,
     };
 
     res.json(formattedProject);

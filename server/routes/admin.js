@@ -233,6 +233,7 @@ router.get("/projects", authenticateToken, requireAdmin, async (req, res) => {
       ...project,
       technologies: project.technologies.split(", "),
       featured: Boolean(project.featured),
+      category: project.category || null,
     }));
     res.json(formattedProjects);
   } catch (error) {
@@ -255,6 +256,10 @@ router.post("/projects", authenticateToken, requireAdmin, async (req, res) => {
       featured,
     } = req.body;
 
+    // Validate required fields
+    if (!title || !description || !technologies || !github_url || !image_url) {
+      return res.status(400).json({ error: "Missing required fields" });
+    }
     const stmt = db.prepare(`
       INSERT INTO projects (title, description, long_description, technologies, category, github_url, live_url, image_url, featured)
       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
@@ -265,7 +270,7 @@ router.post("/projects", authenticateToken, requireAdmin, async (req, res) => {
       description,
       long_description,
       Array.isArray(technologies) ? technologies.join(", ") : technologies,
-      category,
+      category || null,
       github_url,
       live_url || null,
       image_url,
@@ -301,6 +306,16 @@ router.put(
         featured,
       } = req.body;
 
+      // Validate required fields
+      if (
+        !title ||
+        !description ||
+        !technologies ||
+        !github_url ||
+        !image_url
+      ) {
+        return res.status(400).json({ error: "Missing required fields" });
+      }
       const stmt = db.prepare(`
       UPDATE projects
       SET title = ?, description = ?, long_description = ?, technologies = ?, category = ?,
@@ -313,7 +328,7 @@ router.put(
         description,
         long_description,
         Array.isArray(technologies) ? technologies.join(", ") : technologies,
-        category,
+        category || null,
         github_url,
         live_url || null,
         image_url,

@@ -173,7 +173,7 @@ const AdminProjects: React.FC = () => {
         live_url: project.live_url,
         image_url: project.image_url,
         featured: project.featured,
-        category: project.category || "",
+        category: project.category || categories[0] || "",
       });
     } else {
       setEditingProject(null);
@@ -186,7 +186,7 @@ const AdminProjects: React.FC = () => {
         live_url: "",
         image_url: "",
         featured: false,
-        category: "",
+        category: categories[0] || "",
       });
     }
     setShowModal(true);
