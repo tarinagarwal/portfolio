@@ -136,11 +136,11 @@ const About: React.FC = () => {
                     </p>
 
                     <a
-                      href={profile.resume_url}
+                      href="/resume-viewer"
                       className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-purple-500 to-blue-500 text-white font-semibold rounded-lg hover:from-purple-600 hover:to-blue-600 transition-all duration-200 transform hover:scale-105"
                     >
                       <Download className="mr-2" size={20} />
-                      Download Resume
+                      View Resume
                     </a>
                   </div>
                 </>

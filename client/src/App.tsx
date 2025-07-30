@@ -18,6 +18,7 @@ import AdminExperience from "./pages/admin/AdminExperience";
 import AdminTestimonials from "./pages/admin/AdminTestimonials";
 import AdminProfile from "./pages/admin/AdminProfile";
 import AdminContacts from "./pages/admin/AdminContacts";
+import ResumeViewer from "./pages/ResumeViewer";
 
 function App() {
   return (
@@ -71,6 +72,7 @@ function App() {
                       <Route path="/skills" element={<Skills />} />
                       <Route path="/experience" element={<Experience />} />
                       <Route path="/contact" element={<Contact />} />
+                      <Route path="/resume-viewer" element={<ResumeViewer />} />
                     </Routes>
                   </AnimatePresence>
                 </main>
