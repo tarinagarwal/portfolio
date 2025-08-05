@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 import PageTransition from "../components/PageTransition";
 import LoadingSpinner from "../components/LoadingSpinner";
 import SkeletonLoader from "../components/SkeletonLoader";
-import Spline from "@splinetool/react-spline";
+import SplineModel from "../components/SplineModel";
 import { apiEndpoints } from "../utils/api";
 
 interface Profile {
@@ -181,22 +181,31 @@ const Home: React.FC = () => {
 
             {/* Profile Image */}
             <motion.div
-              className="hidden md:flex justify-center lg:justify-end"
+              className="flex justify-center lg:justify-end"
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
               {loading ? (
-                <SkeletonLoader variant="avatar" className="w-80 h-80" />
+                <SkeletonLoader
+                  variant="image"
+                  className="w-80 h-80 md:w-96 md:h-96 rounded-2xl"
+                />
               ) : profile ? (
                 <div className="relative">
-                  <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full opacity-20 blur-2xl transform scale-110"></div>
-                  {/* <img
-                    src={profile.avatar_url}
-                    alt={profile.name}
-                    className="relative w-80 h-80 rounded-full object-cover border-4 border-gray-700 shadow-2xl"
-                  /> */}
-                  <Spline scene="https://prod.spline.design/SqdJqi-TwKVKAbeF/scene.splinecode" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-blue-500 rounded-2xl opacity-20 blur-2xl transform scale-110"></div>
+
+                  {/* 3D Spline Model */}
+                  <div className="relative w-80 h-80 md:w-96 md:h-96">
+                    <SplineModel
+                      sceneUrl="https://prod.spline.design/SqdJqi-TwKVKAbeF/scene.splinecode"
+                      className="w-full h-full"
+                      onLoad={() => console.log("3D model loaded successfully")}
+                      onError={(error) =>
+                        console.error("3D model failed to load:", error)
+                      }
+                    />
+                  </div>
                 </div>
               ) : null}
             </motion.div>
