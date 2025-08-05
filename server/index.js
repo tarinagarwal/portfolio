@@ -34,6 +34,9 @@ app.use(
       "http://localhost:3000",
       "https://tarinagarwal.vercel.app",
       "https://tarinagarwal.in",
+      "http://tarinagarwal.in",
+      "https://www.tarinagarwal.in",
+      "http://www.tarinagarwal.in",
     ],
     credentials: true,
   })
