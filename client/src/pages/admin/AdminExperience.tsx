@@ -15,6 +15,7 @@ import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import SkeletonLoader from "../../components/SkeletonLoader";
+import { apiEndpoints, buildApiUrl } from "../../utils/api";
 
 interface Experience {
   id: number;
@@ -60,14 +61,11 @@ const AdminExperience: React.FC = () => {
   const fetchExperience = async () => {
     try {
       const token = localStorage.getItem("adminToken");
-      const response = await fetch(
-        "https://portfolio-5y49.onrender.com/api/admin/experience",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await fetch(apiEndpoints.admin.experience, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       if (response.ok) {
         const data = await response.json();
@@ -142,8 +140,8 @@ const AdminExperience: React.FC = () => {
     try {
       const token = localStorage.getItem("adminToken");
       const url = editingExperience
-        ? `https://portfolio-5y49.onrender.com/api/admin/experience/${editingExperience.id}`
-        : "https://portfolio-5y49.onrender.com/api/admin/experience";
+        ? buildApiUrl(apiEndpoints.admin.experience, editingExperience.id)
+        : apiEndpoints.admin.experience;
 
       const method = editingExperience ? "PUT" : "POST";
 
@@ -184,7 +182,7 @@ const AdminExperience: React.FC = () => {
     try {
       const token = localStorage.getItem("adminToken");
       const response = await fetch(
-        `https://portfolio-5y49.onrender.com/api/admin/experience/${id}`,
+        buildApiUrl(apiEndpoints.admin.experience, id),
         {
           method: "DELETE",
           headers: {

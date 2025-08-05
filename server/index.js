@@ -33,6 +33,7 @@ app.use(
       "http://localhost:5173",
       "http://localhost:3000",
       "https://tarinagarwal.vercel.app",
+      "https://tarinagarwal.in",
     ],
     credentials: true,
   })

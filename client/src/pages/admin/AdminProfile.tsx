@@ -15,6 +15,7 @@ import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import SkeletonLoader from "../../components/SkeletonLoader";
+import { apiEndpoints } from "../../utils/api";
 
 interface Profile {
   name: string;
@@ -60,14 +61,11 @@ const AdminProfile: React.FC = () => {
   const fetchProfile = async () => {
     try {
       const token = localStorage.getItem("adminToken");
-      const response = await fetch(
-        "https://portfolio-5y49.onrender.com/api/admin/profile",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await fetch(apiEndpoints.admin.profile, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       if (response.ok) {
         const data = await response.json();
@@ -109,17 +107,14 @@ const AdminProfile: React.FC = () => {
 
     try {
       const token = localStorage.getItem("adminToken");
-      const response = await fetch(
-        "https://portfolio-5y49.onrender.com/api/admin/profile",
-        {
-          method: "PUT",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        }
-      );
+      const response = await fetch(apiEndpoints.admin.profile, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
       if (response.ok) {
         toast.success("Profile updated successfully!");

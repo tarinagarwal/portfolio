@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Award, Users, Coffee, Clock, Download } from "lucide-react";
 import PageTransition from "../components/PageTransition";
 import SkeletonLoader from "../components/SkeletonLoader";
+import { apiEndpoints } from "../utils/api";
 
 interface Profile {
   name: string;
@@ -25,9 +26,7 @@ const About: React.FC = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const response = await fetch(
-          "https://portfolio-5y49.onrender.com/api/profile"
-        );
+        const response = await fetch(apiEndpoints.profile);
         const data = await response.json();
         setProfile(data);
       } catch (error) {

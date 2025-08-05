@@ -17,6 +17,7 @@ import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import SkeletonLoader from "../../components/SkeletonLoader";
+import { apiEndpoints, buildApiUrl } from "../../utils/api";
 
 interface Project {
   id: number;
@@ -79,14 +80,11 @@ const AdminProjects: React.FC = () => {
   const fetchProjects = async () => {
     try {
       const token = localStorage.getItem("adminToken");
-      const response = await fetch(
-        "https://portfolio-5y49.onrender.com/api/admin/projects",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await fetch(apiEndpoints.admin.projects, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       if (response.ok) {
         const data = await response.json();
@@ -173,6 +171,7 @@ const AdminProjects: React.FC = () => {
         live_url: project.live_url,
         image_url: project.image_url,
         featured: project.featured,
+        //@ts-ignore
         category: project.category || categories[0] || "",
       });
     } else {
@@ -214,8 +213,8 @@ const AdminProjects: React.FC = () => {
     try {
       const token = localStorage.getItem("adminToken");
       const url = editingProject
-        ? `https://portfolio-5y49.onrender.com/api/admin/projects/${editingProject.id}`
-        : "https://portfolio-5y49.onrender.com/api/admin/projects";
+        ? buildApiUrl(apiEndpoints.admin.projects, editingProject.id)
+        : apiEndpoints.admin.projects;
 
       const method = editingProject ? "PUT" : "POST";
 
@@ -251,7 +250,7 @@ const AdminProjects: React.FC = () => {
     try {
       const token = localStorage.getItem("adminToken");
       const response = await fetch(
-        `https://portfolio-5y49.onrender.com/api/admin/projects/${id}`,
+        buildApiUrl(apiEndpoints.admin.projects, id),
         {
           method: "DELETE",
           headers: {
@@ -531,6 +530,7 @@ const AdminProjects: React.FC = () => {
                   <select
                     name="category"
                     value={formData.category}
+                    //@ts-ignore
                     onChange={handleInputChange}
                     required
                     className="w-full px-4 py-3 bg-gray-700/50 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"

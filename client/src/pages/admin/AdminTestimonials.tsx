@@ -14,6 +14,7 @@ import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import SkeletonLoader from "../../components/SkeletonLoader";
+import { apiEndpoints, buildApiUrl } from "../../utils/api";
 
 interface Testimonial {
   id: number;
@@ -55,14 +56,11 @@ const AdminTestimonials: React.FC = () => {
   const fetchTestimonials = async () => {
     try {
       const token = localStorage.getItem("adminToken");
-      const response = await fetch(
-        "https://portfolio-5y49.onrender.com/api/admin/testimonials",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await fetch(apiEndpoints.admin.testimonials, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       if (response.ok) {
         const data = await response.json();
@@ -124,8 +122,8 @@ const AdminTestimonials: React.FC = () => {
     try {
       const token = localStorage.getItem("adminToken");
       const url = editingTestimonial
-        ? `https://portfolio-5y49.onrender.com/api/admin/testimonials/${editingTestimonial.id}`
-        : "https://portfolio-5y49.onrender.com/api/admin/testimonials";
+        ? buildApiUrl(apiEndpoints.admin.testimonials, editingTestimonial.id)
+        : apiEndpoints.admin.testimonials;
 
       const method = editingTestimonial ? "PUT" : "POST";
 
@@ -160,7 +158,7 @@ const AdminTestimonials: React.FC = () => {
     try {
       const token = localStorage.getItem("adminToken");
       const response = await fetch(
-        `https://portfolio-5y49.onrender.com/api/admin/testimonials/${id}`,
+        buildApiUrl(apiEndpoints.admin.testimonials, id),
         {
           method: "DELETE",
           headers: {

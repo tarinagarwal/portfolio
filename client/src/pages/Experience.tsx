@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Calendar, MapPin, Building, Star } from "lucide-react";
 import PageTransition from "../components/PageTransition";
 import SkeletonLoader from "../components/SkeletonLoader";
+import { apiEndpoints } from "../utils/api";
 
 interface Experience {
   id: number;
@@ -34,8 +35,8 @@ const Experience: React.FC = () => {
     const fetchData = async () => {
       try {
         const [expResponse, testResponse] = await Promise.all([
-          fetch("https://portfolio-5y49.onrender.com/api/experience"),
-          fetch("https://portfolio-5y49.onrender.com/api/testimonials"),
+          fetch(apiEndpoints.experience),
+          fetch(apiEndpoints.testimonials),
         ]);
 
         const expData = await expResponse.json();

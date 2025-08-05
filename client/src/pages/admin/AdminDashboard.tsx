@@ -22,6 +22,7 @@ import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import SkeletonLoader from "../../components/SkeletonLoader";
+import { apiEndpoints } from "../../utils/api";
 
 interface DashboardStats {
   projects: number;
@@ -76,14 +77,11 @@ const AdminDashboard: React.FC = () => {
   const fetchDashboardStats = async () => {
     try {
       const token = localStorage.getItem("adminToken");
-      const response = await fetch(
-        "https://portfolio-5y49.onrender.com/api/admin/dashboard/stats",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await fetch(apiEndpoints.admin.dashboard.stats, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       if (response.ok) {
         const data = await response.json();
@@ -102,7 +100,7 @@ const AdminDashboard: React.FC = () => {
     try {
       const token = localStorage.getItem("adminToken");
       const response = await fetch(
-        "https://portfolio-5y49.onrender.com/api/admin/dashboard/connection-status",
+        apiEndpoints.admin.dashboard.connectionStatus,
         {
           headers: {
             Authorization: `Bearer ${token}`,

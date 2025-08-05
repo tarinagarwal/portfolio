@@ -14,6 +14,7 @@ import PageTransition from "../components/PageTransition";
 import LoadingSpinner from "../components/LoadingSpinner";
 import SkeletonLoader from "../components/SkeletonLoader";
 import toast from "react-hot-toast";
+import { apiEndpoints } from "../utils/api";
 
 interface Profile {
   name: string;
@@ -51,9 +52,7 @@ const Contact: React.FC = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const response = await fetch(
-          "https://portfolio-5y49.onrender.com/api/profile"
-        );
+        const response = await fetch(apiEndpoints.profile);
         const data = await response.json();
         setProfile(data);
       } catch (error) {
@@ -81,16 +80,13 @@ const Contact: React.FC = () => {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch(
-        "https://portfolio-5y49.onrender.com/api/contact",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        }
-      );
+      const response = await fetch(apiEndpoints.contact, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
       if (response.ok) {
         setIsSubmitted(true);

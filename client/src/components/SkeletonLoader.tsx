@@ -27,6 +27,7 @@ const SkeletonLoader: React.FC<SkeletonLoaderProps> = ({
     return (
       <div className={className}>
         {Array.from({ length: lines }).map((_, index) => (
+          //@ts-ignore
           <motion.div
             key={index}
             className={`bg-gray-700 rounded h-4 mb-2 ${index === lines - 1 ? 'w-3/4' : 'w-full'}`}

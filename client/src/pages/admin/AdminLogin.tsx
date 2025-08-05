@@ -4,6 +4,7 @@ import { Mail, Lock, Send, CheckCircle, AlertCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import LoadingSpinner from "../../components/LoadingSpinner";
+import { apiEndpoints } from "../../utils/api";
 
 const AdminLogin: React.FC = () => {
   const [step, setStep] = useState<"username" | "otp">("username");
@@ -18,16 +19,13 @@ const AdminLogin: React.FC = () => {
     setLoading(true);
 
     try {
-      const response = await fetch(
-        "https://portfolio-5y49.onrender.com/api/admin/login/request-otp",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ username }),
-        }
-      );
+      const response = await fetch(apiEndpoints.admin.login.requestOtp, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username }),
+      });
 
       const data = await response.json();
 
@@ -50,16 +48,13 @@ const AdminLogin: React.FC = () => {
     setLoading(true);
 
     try {
-      const response = await fetch(
-        "https://portfolio-5y49.onrender.com/api/admin/login/verify-otp",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ username, otp }),
-        }
-      );
+      const response = await fetch(apiEndpoints.admin.login.verifyOtp, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username, otp }),
+      });
 
       const data = await response.json();
 

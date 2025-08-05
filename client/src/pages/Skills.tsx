@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import PageTransition from "../components/PageTransition";
 import SkeletonLoader from "../components/SkeletonLoader";
+import { apiEndpoints } from "../utils/api";
 
 interface Skill {
   id: number;
@@ -27,9 +28,7 @@ const Skills: React.FC = () => {
   useEffect(() => {
     const fetchSkills = async () => {
       try {
-        const response = await fetch(
-          "https://portfolio-5y49.onrender.com/api/skills"
-        );
+        const response = await fetch(apiEndpoints.skills);
         const data = await response.json();
         setSkills(data);
       } catch (error) {

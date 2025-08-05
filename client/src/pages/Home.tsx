@@ -14,6 +14,7 @@ import PageTransition from "../components/PageTransition";
 import LoadingSpinner from "../components/LoadingSpinner";
 import SkeletonLoader from "../components/SkeletonLoader";
 import Spline from "@splinetool/react-spline";
+import { apiEndpoints } from "../utils/api";
 
 interface Profile {
   name: string;
@@ -49,10 +50,8 @@ const Home: React.FC = () => {
     const fetchData = async () => {
       try {
         const [profileRes, projectsRes] = await Promise.all([
-          fetch("https://portfolio-5y49.onrender.com/api/profile"),
-          fetch(
-            "https://portfolio-5y49.onrender.com/api/projects?featured=true"
-          ),
+          fetch(apiEndpoints.profile),
+          fetch(`${apiEndpoints.projects}?featured=true`),
         ]);
 
         const profileData = await profileRes.json();

@@ -16,6 +16,7 @@ import { Link } from "react-router-dom";
 import PageTransition from "../components/PageTransition";
 import LoadingSpinner from "../components/LoadingSpinner";
 import toast from "react-hot-toast";
+import { apiEndpoints } from "../utils/api";
 
 // Set up PDF.js worker
 pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
@@ -40,9 +41,7 @@ const ResumeViewer: React.FC = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const response = await fetch(
-          "https://portfolio-5y49.onrender.com/api/profile"
-        );
+        const response = await fetch(apiEndpoints.profile);
         const data = await response.json();
         // Use resume from public folder instead of database URL
         setProfile({
@@ -257,8 +256,6 @@ const ResumeViewer: React.FC = () => {
                   >
                     <RotateCcw size={20} />
                   </button>
-
-                  
                 </div>
               </div>
             </motion.div>
