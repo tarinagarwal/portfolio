@@ -11,6 +11,11 @@ const poppins = Poppins({
 export const metadata: Metadata = {
   title: "Portfolio | Tarin Agarwal",
   description: "Full-Stack Developer & Game Developer",
+  icons: {
+    icon: "/image.png",
+    shortcut: "/image.png",
+    apple: "/image.png",
+  },
 };
 
 export default function RootLayout({
@@ -20,6 +25,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href="/api/favicon" type="image/svg+xml" />
+        <link rel="shortcut icon" href="/api/favicon" type="image/svg+xml" />
+        <link rel="apple-touch-icon" href="/api/favicon" />
+      </head>
       <body className={`${poppins.variable} antialiased`}>{children}</body>
     </html>
   );
