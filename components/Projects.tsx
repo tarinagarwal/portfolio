@@ -11,6 +11,8 @@ export default function Projects() {
     loop: true,
     align: "start",
     slidesToScroll: 1,
+    skipSnaps: false,
+    containScroll: "trimSnaps",
   });
 
   const scrollPrev = useCallback(
@@ -42,56 +44,72 @@ export default function Projects() {
 
         <div className="relative px-8 sm:px-12">
           <div className="overflow-hidden" ref={emblaRef}>
-            <div className="flex gap-4 sm:gap-6">
+            <div className="flex">
               {projects.map((project, i) => (
                 <div
                   key={i}
-                  className="flex-[0_0_100%] sm:flex-[0_0_80%] md:flex-[0_0_50%] lg:flex-[0_0_calc(33.333%-16px)] min-w-0"
+                  className="flex-[0_0_100%] sm:flex-[0_0_80%] md:flex-[0_0_50%] lg:flex-[0_0_33.333%] min-w-0 px-2 sm:px-3"
                 >
                   <motion.div
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5 }}
-                    className="glass glass-hover rounded-2xl sm:rounded-3xl overflow-hidden group h-full"
+                    className="glass glass-hover rounded-2xl sm:rounded-3xl overflow-hidden h-full flex flex-col"
                   >
-                    <div className="relative h-48 sm:h-56 md:h-64 overflow-hidden">
+                    <div className="relative h-48 sm:h-56 md:h-64 overflow-hidden flex-shrink-0">
                       <img
                         src={project.image}
                         alt={project.title}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                        className="w-full h-full object-cover"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center gap-3 sm:gap-4 p-4 sm:p-6">
-                        <a
-                          href={project.github}
-                          className="p-2.5 sm:p-3 bg-white/10 backdrop-blur-sm rounded-full hover:bg-white/20 transition-colors"
-                        >
-                          <Github className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
-                        </a>
-                        <a
-                          href={project.live}
-                          className="p-2.5 sm:p-3 bg-emerald-500 rounded-full hover:bg-emerald-600 transition-colors"
-                        >
-                          <ExternalLink className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
-                        </a>
-                      </div>
+                      {project.badge && (
+                        <div className="absolute top-3 right-3 px-3 py-1.5 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-full text-xs font-bold text-black shadow-lg flex items-center gap-1">
+                          <span>⭐</span>
+                          <span>{project.badge}</span>
+                        </div>
+                      )}
                     </div>
-                    <div className="p-4 sm:p-6">
+                    <div className="p-4 sm:p-6 flex flex-col flex-grow">
                       <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white mb-2">
                         {project.title}
                       </h3>
-                      <p className="text-gray-400 mb-3 sm:mb-4 text-sm sm:text-base line-clamp-2">
+                      <p className="text-gray-400 mb-3 sm:mb-4 text-sm sm:text-base flex-grow">
                         {project.description}
                       </p>
-                      <div className="flex flex-wrap gap-1.5 sm:gap-2">
+                      <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-4">
                         {project.tags.map((tag, j) => (
                           <span
                             key={j}
-                            className="px-2.5 sm:px-3 py-0.5 sm:py-1 glass rounded-full text-emerald-400 text-xs sm:text-sm"
+                            className="px-2.5 sm:px-3 py-0.5 sm:py-1 glass rounded-full text-emerald-400 text-xs sm:text-sm h-fit"
                           >
                             {tag}
                           </span>
                         ))}
+                      </div>
+                      <div className="flex gap-3 pt-3 border-t border-white/10 mt-auto">
+                        {project.github && project.github !== "#" && (
+                          <a
+                            href={project.github}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-lg hover:bg-white/20 transition-colors text-white text-sm"
+                          >
+                            <Github className="w-4 h-4" />
+                            <span>GitHub</span>
+                          </a>
+                        )}
+                        {project.live && project.live !== "#" && (
+                          <a
+                            href={project.live}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-2 px-4 py-2 bg-emerald-500 rounded-lg hover:bg-emerald-600 transition-colors text-white text-sm"
+                          >
+                            <ExternalLink className="w-4 h-4" />
+                            <span>Live Demo</span>
+                          </a>
+                        )}
                       </div>
                     </div>
                   </motion.div>

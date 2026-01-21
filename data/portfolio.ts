@@ -165,30 +165,109 @@ export const projects = [
     description:
       "First-person survival horror with adaptive AI using reinforcement learning to counter player strategies.",
     image:
-      "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=800&h=600&fit=crop",
+      "https://img.itch.zone/aW1nLzIyNzU1MTg0LnBuZw==/315x250%23c/BtR5Do.png",
     tags: ["Unreal Engine 5", "C++", "ML-Agents", "ONNX"],
     github: "https://github.com/tarinagarwal/Gameathon-Pineapples",
+    live: "https://tarinstudios.itch.io/dimensional-death",
+  },
+  {
+    title: "Environment Config Manager",
+    description:
+      "Enterprise SaaS platform for managing environment variables and secrets with end-to-end encryption, RBAC, and AWS integration.",
+    image:
+      "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=800&h=600&fit=crop",
+    tags: ["Node.js", "PostgreSQL", "Prisma", "Redis", "AWS"],
+    github: "https://github.com/tarinagarwal/env-config-manager",
     live: "#",
+  },
+  {
+    title: "Edulume",
+    description:
+      "AI-powered learning platform with course generation, roadmap generation, PDF chatting, and community discussions.",
+    image: "/edulume.png",
+    tags: ["React", "Node.js", "Groq LLM", "Pinecone", "Redis"],
+    github: "https://github.com/tarinagarwal/Edulume",
+    live: "https://edulume.site",
+    badge: "Open Source",
+  },
+  {
+    title: "Nirvāṇa - Rigveda Explorer",
+    description:
+      "Interactive web app bringing ancient Rigveda wisdom through AI-powered exploration, multi-language translations, and authentic Vedic chanting.",
+    image: "/nirvana.png",
+    tags: ["Next.js 14", "TypeScript", "Gemini AI", "Tailwind CSS"],
+    github: "https://github.com/tarinagarwal/RigVedaHack",
+    live: "https://nirvaana-ai.vercel.app/",
+  },
+  {
+    title: "VoxBoard",
+    description:
+      "Voice-controlled drawing app that converts speech to visual diagrams using AI - speak your ideas and watch them transform into Mermaid diagrams.",
+    image:
+      "https://images.unsplash.com/photo-1589254066213-a0c9dc853511?w=800&h=600&fit=crop",
+    tags: ["React", "tRPC", "Gemini AI", "Excalidraw", "Web Speech API"],
+    github: "https://github.com/tarinagarwal/VoxBoard",
+    live: "https://voxboardlive.web.app/",
   },
   {
     title: "DreamVault",
     description:
       "AI app that transforms dreams into stories, theme songs, and manga-style comics using Grok LLM and Stability AI.",
     image:
-      "https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1511447333015-45b65e60f6d5?w=800&h=600&fit=crop",
     tags: ["React", "Node.js", "MongoDB", "LangChain", "AI"],
-    github: "#",
+    github: "https://github.com/tarinagarwal/DreamVault",
     live: "https://dreamvaultai.vercel.app",
   },
   {
-    title: "Edulume",
+    title: "Cyber Threat Detection",
     description:
-      "AI-powered learning platform with course generation, roadmap generation, PDF chatting, and community discussions.",
+      "Real-time security system monitoring Downloads folder with ClamAV, VirusTotal, steganography detection, and AI security assistant.",
     image:
-      "https://images.unsplash.com/photo-1501504905252-473c47e087f8?w=800&h=600&fit=crop",
-    tags: ["React", "Node.js", "Groq LLM", "Pinecone", "Redis"],
-    github: "#",
-    live: "https://edulume.site",
+      "https://images.unsplash.com/photo-1614064641938-3bbee52942c7?w=800&h=600&fit=crop",
+    tags: ["Python", "FastAPI", "React", "ClamAV", "VirusTotal"],
+    github: "https://github.com/tarinagarwal/cyber-threat-detection-system",
+    live: "#",
+  },
+  {
+    title: "LazyDev",
+    description:
+      "Automated Git commit scheduler helping developers maintain consistent GitHub activity with customizable commit patterns.",
+    image:
+      "https://images.unsplash.com/photo-1556075798-4825dfaaf498?w=800&h=600&fit=crop",
+    tags: ["Python", "FastAPI", "React", "MongoDB", "Git Automation"],
+    github: "https://github.com/tarinagarwal/LazyDev",
+    live: "https://lazydev-web.vercel.app/",
+  },
+  {
+    title: "ECG ML API",
+    description:
+      "Real-time ECG analysis with PQRST peak detection, heart rate calculation, and automated cardiac abnormality diagnosis using ML.",
+    image:
+      "https://images.unsplash.com/photo-1628348068343-c6a848d2b6dd?w=800&h=600&fit=crop",
+    tags: ["Python", "FastAPI", "WebSocket", "ML", "Healthcare"],
+    github: "https://github.com/tarinagarwal/ecg-api",
+    live: "#",
+  },
+  {
+    title: "Intelligent Load Balancer",
+    description:
+      "Load balancer with multiple algorithms (Round Robin, Least Connections) and Reinforcement Learning optimization with Prometheus monitoring.",
+    image:
+      "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=800&h=600&fit=crop",
+    tags: ["Python", "Flask", "Prometheus", "Grafana", "RL"],
+    github: "https://github.com/tarinagarwal/loadbalancer",
+    live: "#",
+  },
+  {
+    title: "Cloud on RISC-V",
+    description:
+      "Cloud computing platform on RISC-V architecture with virtual node management, task scheduling, and resource monitoring.",
+    image:
+      "https://images.unsplash.com/photo-1667372393119-3d4c48d07fc9?w=800&h=600&fit=crop",
+    tags: ["Python", "Flask", "MongoDB", "RISC-V", "Emulation"],
+    github: "https://github.com/tarinagarwal/cloud-implementation-on-riscv",
+    live: "#",
   },
   {
     title: "Skribbl Clone",
@@ -197,8 +276,78 @@ export const projects = [
     image:
       "https://images.unsplash.com/photo-1611162616475-46b635cb6868?w=800&h=600&fit=crop",
     tags: ["React", "WebSockets", "Node.js", "SQLite"],
-    github: "#",
+    github: "https://github.com/tarinagarwal/Skribbl",
     live: "https://skribbl.tarinagarwal.in",
+  },
+  {
+    title: "GeoSpoof",
+    description:
+      "Wi-Fi location spoofing tool broadcasting MAC addresses from target locations using WiGLE API and wireless penetration testing tools.",
+    image:
+      "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&h=600&fit=crop",
+    tags: ["Python", "WiGLE API", "Security", "Wireless"],
+    github: "https://github.com/tarinagarwal/geospoofing",
+    live: "#",
+  },
+  {
+    title: "Weather Markov Chain",
+    description:
+      "Weather prediction using Markov Chain theory with 90 days historical data, transition matrices, and interactive visualizations.",
+    image:
+      "https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?w=800&h=600&fit=crop",
+    tags: ["TypeScript", "React", "SQLite", "Markov Chains"],
+    github: "https://github.com/tarinagarwal/TOC-Assignment",
+    live: "#",
+  },
+  {
+    title: "AI Podcast Studio",
+    description:
+      "Transforms content into two-person podcast conversations with realistic 3D avatar videos using Groq LLM and HeyGen API.",
+    image:
+      "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?w=800&h=600&fit=crop",
+    tags: ["React", "Node.js", "Groq TTS", "HeyGen API", "SQLite"],
+    github: "https://github.com/tarinagarwal/ai-podcast",
+    live: "#",
+  },
+  {
+    title: "Women Safety App",
+    description:
+      "Emergency safety app with real-time location tracking, voice-activated alerts, guardian management, and SOS functionality.",
+    image:
+      "https://images.unsplash.com/photo-1621252179027-94459d278660?w=800&h=600&fit=crop",
+    tags: ["React Native", "Expo", "Node.js", "MongoDB"],
+    github: "https://github.com/tarinagarwal/WomenSafety",
+    live: "#",
+  },
+  {
+    title: "Flint",
+    description:
+      "Dating app designed specifically for college students with profile matching, social features, and campus-focused networking.",
+    image:
+      "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=800&h=600&fit=crop",
+    tags: ["React Native", "Node.js", "MongoDB", "Mobile"],
+    github: "https://github.com/tarinagarwal/Flint",
+    live: "#",
+  },
+  {
+    title: "Modi Bird",
+    description:
+      "Political satire game (Flappy Bird clone) featuring Modi and Rahul Gandhi with epic death animations and meme music.",
+    image:
+      "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=800&h=600&fit=crop",
+    tags: ["GDScript", "Godot Engine", "Game Dev"],
+    github: "https://github.com/tarinagarwal/ModiBird",
+    live: "#",
+  },
+  {
+    title: "MongoDB Auth Template",
+    description:
+      "Production-ready authentication system with JWT, email verification, password reset, and beautiful customizable UI.",
+    image:
+      "https://images.unsplash.com/photo-1614064641938-3bbee52942c7?w=800&h=600&fit=crop",
+    tags: ["React", "Node.js", "Express", "Prisma", "MongoDB"],
+    github: "https://github.com/tarinagarwal/MongoDB-Auth",
+    live: "#",
   },
 ];
 
