@@ -364,7 +364,7 @@ export const hackathons = [
     position: "Winner",
     project: "DreamVault",
     description:
-      "National Level Hackathon - Created an AI-powered dream interpretation and creative content generation platform.",
+      "24-hour National Level Hackathon - Developed a comprehensive solution with team collaboration.",
   },
   {
     title: "GameForge 2025",
