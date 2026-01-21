@@ -4,7 +4,10 @@ import { motion } from "framer-motion";
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden px-4">
+    <section
+      className="relative min-h-screen flex items-center justify-center overflow-hidden px-4"
+      aria-label="Hero section"
+    >
       {/* Animated Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-[#0a0f1e] via-[#0d1425] to-[#0a0f1e]">
         <div className="absolute inset-0 opacity-20">
@@ -19,6 +22,7 @@ export default function Hero() {
               ease: "easeInOut",
             }}
             className="absolute top-10 left-10 sm:top-20 sm:left-20 w-48 h-48 sm:w-96 sm:h-96 bg-emerald-500/20 rounded-full blur-3xl"
+            aria-hidden="true"
           />
           <motion.div
             animate={{
@@ -32,6 +36,7 @@ export default function Hero() {
               delay: 2,
             }}
             className="absolute bottom-10 right-10 sm:bottom-20 sm:right-20 w-48 h-48 sm:w-96 sm:h-96 bg-green-500/20 rounded-full blur-3xl"
+            aria-hidden="true"
           />
         </div>
       </div>
@@ -73,6 +78,7 @@ export default function Hero() {
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
+              aria-hidden="true"
             >
               <path
                 strokeLinecap="round"
@@ -94,12 +100,14 @@ export default function Hero() {
             <a
               href="#projects"
               className="w-full sm:w-auto group relative px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-emerald-500 to-green-500 text-white rounded-full font-bold text-base sm:text-lg shadow-2xl hover:shadow-emerald-500/50 transition-all duration-300 hover:scale-105 text-center"
+              aria-label="View my projects"
             >
               View My Work
             </a>
             <a
               href="#contact"
               className="w-full sm:w-auto group px-6 sm:px-8 py-3 sm:py-4 glass glass-hover text-emerald-400 rounded-full font-bold text-base sm:text-lg text-center"
+              aria-label="Get in touch with me"
             >
               Get In Touch
             </a>

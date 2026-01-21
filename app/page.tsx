@@ -10,13 +10,15 @@ import Dock from "@/components/Dock";
 export default function Home() {
   return (
     <main className="relative pb-32">
-      <Hero />
-      <About />
-      <Experience />
-      <Skills />
-      <Projects />
-      <Hackathons />
-      <Contact />
+      <article>
+        <Hero />
+        <About />
+        <Experience />
+        <Skills />
+        <Projects />
+        <Hackathons />
+        <Contact />
+      </article>
       <Dock />
     </main>
   );

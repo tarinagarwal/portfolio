@@ -1,22 +1,22 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
+import {
+  generateMetadata as genMeta,
+  personSchema,
+  websiteSchema,
+  professionalServiceSchema,
+} from "@/lib/seo";
 
 const poppins = Poppins({
   variable: "--font-poppins",
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700", "800", "900"],
+  display: "swap",
+  preload: true,
 });
 
-export const metadata: Metadata = {
-  title: "Portfolio | Tarin Agarwal",
-  description: "Full-Stack Developer & Game Developer",
-  icons: {
-    icon: "/image.png",
-    shortcut: "/image.png",
-    apple: "/image.png",
-  },
-};
+export const metadata: Metadata = genMeta({});
 
 export default function RootLayout({
   children,
@@ -29,6 +29,28 @@ export default function RootLayout({
         <link rel="icon" href="/api/favicon" type="image/svg+xml" />
         <link rel="shortcut icon" href="/api/favicon" type="image/svg+xml" />
         <link rel="apple-touch-icon" href="/api/favicon" />
+        <meta name="theme-color" content="#000000" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        {/* JSON-LD Structured Data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(personSchema),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(websiteSchema),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(professionalServiceSchema),
+          }}
+        />
       </head>
       <body className={`${poppins.variable} antialiased`}>{children}</body>
     </html>
