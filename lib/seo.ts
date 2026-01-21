@@ -181,7 +181,7 @@ export function generateMetadata({
     },
     robots: noIndex ? "noindex,nofollow" : "index,follow",
     verification: {
-      google: "your-google-verification-code", // Replace with actual code
+      google: "nBJaTsMhyeH9150bAwZI_VtK0bQpT70tQX72nUzAnGw",
     },
   };
 }
