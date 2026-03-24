@@ -161,25 +161,26 @@ export const skills = [
 
 export const projects = [
   {
-    title: "Dimensional Dead",
+    title: "LGTM",
     description:
-      "First-person survival horror with adaptive AI using reinforcement learning to counter player strategies.",
-    image:
-      "https://img.itch.zone/aW1nLzIyNzU1MTg0LnBuZw==/315x250%23c/BtR5Do.png",
-    tags: ["Unreal Engine 5", "C++", "ML-Agents", "ONNX"],
-    github: "https://github.com/tarinagarwal/Gameathon-Pineapples",
-    live: "https://tarinstudios.itch.io/dimensional-death",
+      "LGTM (Looks Good To Meow) — AI-powered code review platform for GitHub PRs. 6 specialist agents, BYOK, CLI, and auto-review.",
+    image: "lgtm.png",
+    tags: [
+      "React",
+      "Node.js",
+      "Openai",
+      "Tree-sitter",
+      "Redis",
+      "Gemini",
+      "Anthropic",
+      "Google VM",
+      "BullMQ",
+      "Dodo Payments",
+    ],
+    github: "https://github.com/tarinagarwal/lgtm",
+    live: "https://looksgoodtomeow.in/",
   },
-  {
-    title: "Environment Config Manager",
-    description:
-      "Enterprise SaaS platform for managing environment variables and secrets with end-to-end encryption, RBAC, and AWS integration.",
-    image:
-      "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=800&h=600&fit=crop",
-    tags: ["Node.js", "PostgreSQL", "Prisma", "Redis", "AWS"],
-    github: "https://github.com/tarinagarwal/env-config-manager",
-    live: "#",
-  },
+
   {
     title: "Edulume",
     description:
@@ -191,6 +192,16 @@ export const projects = [
     badge: "Open Source",
   },
   {
+    title: "Dimensional Dead",
+    description:
+      "First-person survival horror with adaptive AI using reinforcement learning to counter player strategies.",
+    image:
+      "https://img.itch.zone/aW1nLzIyNzU1MTg0LnBuZw==/315x250%23c/BtR5Do.png",
+    tags: ["Unreal Engine 5", "C++", "ML-Agents", "ONNX"],
+    github: "https://github.com/tarinagarwal/Gameathon-Pineapples",
+    live: "https://tarinstudios.itch.io/dimensional-death",
+  },
+  {
     title: "Nirvāṇa - Rigveda Explorer",
     description:
       "Interactive web app bringing ancient Rigveda wisdom through AI-powered exploration, multi-language translations, and authentic Vedic chanting.",
@@ -198,6 +209,16 @@ export const projects = [
     tags: ["Next.js 14", "TypeScript", "Gemini AI", "Tailwind CSS"],
     github: "https://github.com/tarinagarwal/RigVedaHack",
     live: "https://nirvaana-ai.vercel.app/",
+  },
+  {
+    title: "Environment Config Manager",
+    description:
+      "Enterprise SaaS platform for managing environment variables and secrets with end-to-end encryption, RBAC, and AWS integration.",
+    image:
+      "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=800&h=600&fit=crop",
+    tags: ["Node.js", "PostgreSQL", "Prisma", "Redis", "AWS"],
+    github: "https://github.com/tarinagarwal/env-config-manager",
+    live: "#",
   },
   {
     title: "VoxBoard",
