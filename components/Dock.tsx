@@ -24,7 +24,7 @@ const DockIcon = ({
       className="relative group"
     >
       <div
-        className="flex items-center justify-center w-12 h-12 rounded-full glass glass-hover cursor-pointer"
+        className="flex items-center justify-center w-12 h-12 clay-dock-icon cursor-pointer"
         aria-label={label}
         onClick={onClick}
       >
@@ -57,21 +57,21 @@ export default function Dock() {
       initial={{ y: 100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ delay: 1 }}
-      className="fixed bottom-4 sm:bottom-8 left-1/2 -translate-x-1/2 z-50 px-4 w-full max-w-md"
+      className="fixed bottom-4 sm:bottom-8 left-0 right-0 z-50 flex justify-center px-4"
     >
-      <div className="flex items-center justify-center gap-1.5 sm:gap-2 glass rounded-xl sm:rounded-2xl p-2 sm:p-3 shadow-2xl">
+      <div className="flex items-center justify-center gap-1.5 sm:gap-2 clay-dock p-2 sm:p-3 w-auto">
         <DockIcon href={socialLinks.github} label="GitHub">
-          <Github className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-400" />
+          <Github className="w-4 h-4 sm:w-5 sm:h-5 text-[#ffe0c2]" />
         </DockIcon>
         <DockIcon href={socialLinks.linkedin} label="LinkedIn">
-          <Linkedin className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-400" />
+          <Linkedin className="w-4 h-4 sm:w-5 sm:h-5 text-[#ffe0c2]" />
         </DockIcon>
         <DockIcon href={socialLinks.instagram} label="Instagram">
-          <Instagram className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-400" />
+          <Instagram className="w-4 h-4 sm:w-5 sm:h-5 text-[#ffe0c2]" />
         </DockIcon>
         <div className="w-px h-6 sm:h-8 bg-white/20 mx-0.5 sm:mx-1" />
         <DockIcon label="Scroll to Top" onClick={scrollToTop}>
-          <ArrowUp className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-400" />
+          <ArrowUp className="w-4 h-4 sm:w-5 sm:h-5 text-[#ffe0c2]" />
         </DockIcon>
       </div>
     </motion.div>

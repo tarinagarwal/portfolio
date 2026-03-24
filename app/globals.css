@@ -1,14 +1,19 @@
 @import "tailwindcss";
 
 @theme {
-  --color-emerald-400: #34d399;
-  --color-emerald-500: #10b981;
-  --color-green-400: #4ade80;
-  --color-green-500: #22c55e;
-  --color-teal-400: #2dd4bf;
-  --color-background: #0a0f1e;
-  --color-foreground: #f8fafc;
-  --font-sans: var(--font-poppins);
+  --color-primary: #ffe0c2;
+  --color-primary-dark: #e8c4a0;
+  --color-primary-dim: #d4a87a;
+  --color-secondary: #393028;
+  --color-accent: #2a2a2a;
+  --color-card: #191919;
+  --color-muted: #222222;
+  --color-muted-fg: #b4b4b4;
+  --color-border: #201e18;
+  --color-background: #111111;
+  --color-foreground: #eeeeee;
+  --color-destructive: #e54d2e;
+  --font-sans: var(--font-dm-sans);
 }
 
 * {
@@ -23,11 +28,12 @@ body {
   background: var(--color-background);
   color: var(--color-foreground);
   font-family:
-    var(--font-poppins),
+    var(--font-dm-sans),
     system-ui,
     -apple-system,
     sans-serif;
   line-height: 1.6;
+  letter-spacing: -0.01em;
 }
 
 ::-webkit-scrollbar {
@@ -35,45 +41,246 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #1a1f2e;
+  background: var(--color-muted);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-emerald-500);
+  background: var(--color-primary-dim);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-emerald-400);
+  background: var(--color-primary);
 }
 
 ::selection {
-  background: rgba(16, 185, 129, 0.3);
+  background: rgba(255, 224, 194, 0.25);
   color: var(--color-foreground);
 }
 
+/* ===== TYPOGRAPHY ===== */
+
 .text-gradient {
-  background: linear-gradient(
-    to right,
-    var(--color-emerald-400),
-    var(--color-green-400),
-    var(--color-teal-400)
-  );
+  background: linear-gradient(135deg, #ffe0c2, #f0c8a0, #d4a87a);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
-.glass {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+/* ===== CLAYMORPHISM CARDS ===== */
+
+.clay {
+  background: #1e1e1e;
+  border-radius: 28px;
+  box-shadow:
+    8px 8px 28px 0 rgba(0, 0, 0, 0.55),
+    -4px -4px 16px 0 rgba(60, 60, 60, 0.08),
+    inset 0 2px 6px 0 rgba(255, 255, 255, 0.07),
+    inset 0 -4px 10px 0 rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 224, 194, 0.05);
 }
 
-.glass-hover {
+.clay-hover {
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.clay-hover:hover {
+  transform: translateY(-6px);
+  box-shadow:
+    12px 16px 40px 0 rgba(0, 0, 0, 0.6),
+    -6px -6px 20px 0 rgba(60, 60, 60, 0.1),
+    inset 0 3px 8px 0 rgba(255, 255, 255, 0.1),
+    inset 0 -5px 12px 0 rgba(0, 0, 0, 0.5);
+  border-color: rgba(255, 224, 194, 0.12);
+}
+
+/* ===== CLAYMORPHISM BADGES / PILLS ===== */
+
+.clay-pill {
+  background: #242424;
+  border-radius: 50px;
+  box-shadow:
+    4px 6px 18px 0 rgba(0, 0, 0, 0.5),
+    -2px -2px 10px 0 rgba(60, 60, 60, 0.06),
+    inset 0 1.5px 4px 0 rgba(255, 255, 255, 0.06),
+    inset 0 -2px 6px 0 rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 224, 194, 0.06);
+}
+
+/* ===== CLAYMORPHISM TAGS / CHIPS ===== */
+
+.clay-tag {
+  background: #232323;
+  border-radius: 50px;
+  box-shadow:
+    3px 4px 12px 0 rgba(0, 0, 0, 0.4),
+    -2px -2px 8px 0 rgba(60, 60, 60, 0.05),
+    inset 0 1px 3px 0 rgba(255, 255, 255, 0.05),
+    inset 0 -1.5px 4px 0 rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 224, 194, 0.04);
+}
+
+/* ===== CLAYMORPHISM ACCENT CARD ===== */
+
+.clay-accent {
+  background: rgba(255, 224, 194, 0.08);
+  border-radius: 20px;
+  box-shadow:
+    6px 8px 24px 0 rgba(255, 224, 194, 0.1),
+    -3px -3px 12px 0 rgba(60, 60, 60, 0.06),
+    inset 0 2px 6px 0 rgba(255, 224, 194, 0.1),
+    inset 0 -3px 10px 0 rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 224, 194, 0.1);
+}
+
+/* ===== CLAYMORPHISM BUTTONS ===== */
+
+.clay-btn {
+  border-radius: 50px;
+  box-shadow:
+    6px 8px 24px -2px rgba(255, 224, 194, 0.2),
+    -3px -3px 12px 0 rgba(60, 60, 60, 0.06),
+    inset 0 2px 4px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -3px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.clay-btn:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow:
+    8px 12px 32px -2px rgba(255, 224, 194, 0.3),
+    -4px -4px 16px 0 rgba(60, 60, 60, 0.08),
+    inset 0 3px 6px 0 rgba(255, 255, 255, 0.25),
+    inset 0 -4px 10px 0 rgba(0, 0, 0, 0.25);
+}
+
+.clay-btn:active {
+  transform: translateY(1px) scale(0.98);
+  box-shadow:
+    2px 4px 12px -2px rgba(255, 224, 194, 0.15),
+    inset 0 1px 2px 0 rgba(255, 255, 255, 0.1),
+    inset 0 -2px 6px 0 rgba(0, 0, 0, 0.3);
+}
+
+/* ===== CLAYMORPHISM INPUTS ===== */
+
+.clay-input {
+  background: #151515;
+  border-radius: 16px;
+  box-shadow:
+    inset 3px 3px 8px 0 rgba(0, 0, 0, 0.5),
+    inset -2px -2px 6px 0 rgba(60, 60, 60, 0.04);
+  border: 1px solid rgba(255, 224, 194, 0.06);
   transition: all 0.3s ease;
 }
 
+.clay-input:focus {
+  box-shadow:
+    inset 3px 3px 8px 0 rgba(0, 0, 0, 0.5),
+    inset -2px -2px 6px 0 rgba(60, 60, 60, 0.04),
+    0 0 0 2px rgba(255, 224, 194, 0.25);
+  border-color: rgba(255, 224, 194, 0.3);
+  outline: none;
+}
+
+/* ===== CLAYMORPHISM ICON CONTAINERS ===== */
+
+.clay-icon {
+  border-radius: 16px;
+  box-shadow:
+    4px 6px 16px -2px rgba(0, 0, 0, 0.4),
+    -2px -2px 8px 0 rgba(60, 60, 60, 0.06),
+    inset 0 2px 4px 0 rgba(255, 255, 255, 0.15),
+    inset 0 -2px 6px 0 rgba(0, 0, 0, 0.25);
+}
+
+/* ===== CLAYMORPHISM DOCK ===== */
+
+.clay-dock {
+  background: rgba(30, 30, 30, 0.95);
+  border-radius: 28px;
+  box-shadow:
+    8px 12px 40px 0 rgba(0, 0, 0, 0.65),
+    -4px -4px 16px 0 rgba(60, 60, 60, 0.06),
+    inset 0 2px 6px 0 rgba(255, 255, 255, 0.06),
+    inset 0 -4px 10px 0 rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 224, 194, 0.05);
+  backdrop-filter: blur(20px);
+}
+
+.clay-dock-icon {
+  background: #282828;
+  border-radius: 50%;
+  box-shadow:
+    3px 4px 12px -2px rgba(0, 0, 0, 0.45),
+    -2px -2px 8px 0 rgba(60, 60, 60, 0.05),
+    inset 0 1.5px 4px 0 rgba(255, 255, 255, 0.06),
+    inset 0 -2px 6px 0 rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 224, 194, 0.04);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.clay-dock-icon:hover {
+  box-shadow:
+    5px 8px 20px -2px rgba(255, 224, 194, 0.15),
+    -3px -3px 10px 0 rgba(60, 60, 60, 0.06),
+    inset 0 2px 6px 0 rgba(255, 224, 194, 0.08),
+    inset 0 -3px 8px 0 rgba(0, 0, 0, 0.35);
+  border-color: rgba(255, 224, 194, 0.12);
+}
+
+/* ===== CLAYMORPHISM IMAGE FRAMES ===== */
+
+.clay-image {
+  border-radius: 50%;
+  box-shadow:
+    8px 12px 36px 0 rgba(0, 0, 0, 0.55),
+    -4px -4px 16px 0 rgba(60, 60, 60, 0.06),
+    inset 0 2px 6px 0 rgba(255, 255, 255, 0.08),
+    inset 0 -3px 10px 0 rgba(0, 0, 0, 0.3);
+  border: 3px solid rgba(255, 224, 194, 0.12);
+}
+
+.clay-image-frame {
+  border-radius: 24px 24px 0 0;
+  box-shadow:
+    inset 0 2px 6px 0 rgba(255, 255, 255, 0.04),
+    inset 0 -4px 12px 0 rgba(0, 0, 0, 0.45);
+}
+
+/* ===== TIMELINE DOT ===== */
+
+.clay-dot {
+  box-shadow:
+    3px 4px 10px -2px rgba(255, 224, 194, 0.3),
+    -2px -2px 6px 0 rgba(60, 60, 60, 0.08),
+    inset 0 1px 3px 0 rgba(255, 255, 255, 0.25),
+    inset 0 -1.5px 4px 0 rgba(0, 0, 0, 0.2);
+}
+
+/* ===== LEGACY GLASS COMPAT ===== */
+
+.glass {
+  background: #1e1e1e;
+  border-radius: 28px;
+  box-shadow:
+    8px 8px 28px 0 rgba(0, 0, 0, 0.55),
+    -4px -4px 16px 0 rgba(60, 60, 60, 0.08),
+    inset 0 2px 6px 0 rgba(255, 255, 255, 0.07),
+    inset 0 -4px 10px 0 rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 224, 194, 0.05);
+}
+
+.glass-hover {
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
 .glass-hover:hover {
-  border-color: rgba(16, 185, 129, 0.5);
+  transform: translateY(-6px);
+  box-shadow:
+    12px 16px 40px 0 rgba(0, 0, 0, 0.6),
+    -6px -6px 20px 0 rgba(60, 60, 60, 0.1),
+    inset 0 3px 8px 0 rgba(255, 255, 255, 0.1),
+    inset 0 -5px 12px 0 rgba(0, 0, 0, 0.5);
+  border-color: rgba(255, 224, 194, 0.12);
 }

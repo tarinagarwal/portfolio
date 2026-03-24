@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Poppins } from "next/font/google";
+import { DM_Sans } from "next/font/google";
 import "./globals.css";
 import {
   generateMetadata as genMeta,
@@ -8,8 +8,8 @@ import {
   professionalServiceSchema,
 } from "@/lib/seo";
 
-const poppins = Poppins({
-  variable: "--font-poppins",
+const dmSans = DM_Sans({
+  variable: "--font-dm-sans",
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700", "800", "900"],
   display: "swap",
@@ -29,7 +29,7 @@ export default function RootLayout({
         <link rel="icon" href="/api/favicon" type="image/svg+xml" />
         <link rel="shortcut icon" href="/api/favicon" type="image/svg+xml" />
         <link rel="apple-touch-icon" href="/api/favicon" />
-        <meta name="theme-color" content="#000000" />
+        <meta name="theme-color" content="#111111" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
         {/* JSON-LD Structured Data */}
@@ -52,7 +52,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${poppins.variable} antialiased`}>{children}</body>
+      <body className={`${dmSans.variable} antialiased`}>{children}</body>
     </html>
   );
 }
