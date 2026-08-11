@@ -63,7 +63,6 @@ export const techStack = [
   { name: "React" },
   { name: "Next.js" },
   { name: "React Native" },
-  { name: "Flutter" },
   { name: "Node.js" },
   { name: "Express" },
   { name: "Python" },
@@ -75,14 +74,11 @@ export const techStack = [
   { name: "Supabase" },
   { name: "Prisma" },
   { name: "Redis" },
-  { name: "AWS" },
+  { name: "AWS, GCP, Fly.io" },
   { name: "Docker" },
   { name: "Git" },
   { name: "Tailwind CSS" },
-  { name: "LangChain" },
-  { name: "AI/ML" },
-  { name: "Selenium" },
-  { name: "Puppeteer" },
+  { name: "AI" },
 ];
 
 export const skillCategories = [
@@ -105,22 +101,16 @@ export const skillCategories = [
       "Experienced in building immersive gaming experiences with Unreal Engine 5 and Unity, implementing AI systems and gameplay mechanics",
   },
   {
-    title: "Web Automation",
-    icon: "🤖",
-    description:
-      "Skilled in web automation using Selenium and Puppeteer, streamlining tasks and enhancing efficiency through script automation",
-  },
-  {
     title: "API Integration",
     icon: "🔌",
     description:
       "Proficient in integrating RESTful APIs and GraphQL for efficient communication, enhancing web application functionality",
   },
   {
-    title: "AI & Machine Learning",
+    title: "AI Engineering",
     icon: "🧠",
     description:
-      "Skilled in implementing AI solutions using LangChain, Groq LLM, and ML-Agents for intelligent applications",
+      "Skilled in implementing AI solutions using LangChain, Groq LLM, OpenAI. GCP, OpenRouter for intelligent applications",
   },
   {
     title: "Database Management",
@@ -140,12 +130,6 @@ export const skillCategories = [
     description:
       "Proficient in Git for organized development workflows, with expertise in GitHub for efficient code management",
   },
-  {
-    title: "Problem Solving",
-    icon: "🧩",
-    description:
-      "Versatile in programming languages including JavaScript, Python, and C++, emphasis on clean and efficient code",
-  },
 ];
 
 export const skills = [
@@ -161,25 +145,25 @@ export const skills = [
 
 export const projects = [
   {
-    title: "LGTM",
-    description:
-      "LGTM (Looks Good To Meow) — AI-powered code review platform for GitHub PRs. 6 specialist agents, BYOK, CLI, and auto-review.",
-    image: "lgtm.png",
-    tags: [
-      "React",
-      "Node.js",
-      "Openai",
-      "Tree-sitter",
-      "Redis",
-      "Gemini",
-      "Anthropic",
-      "Google VM",
-      "BullMQ",
-      "Dodo Payments",
-    ],
-    github: "https://github.com/tarinagarwal/lgtm",
-    live: "https://looksgoodtomeow.in/",
-  },
+  title: "LGTM",
+  description:
+    "LGTM (Looks Good To Meow) — Live AI code review + CI/CD security SaaS for GitHub (#36 Product of the Day on Product Hunt). 6-lens review pipeline merged into 2 structured-output LLM calls, 36 CI/CD security detectors with 3 enforcement gates, CycloneDX SBOM generation, Posture Score analytics, custom detector DSL, orgs/RBAC, and a CLI.",
+  image: "lgtm.png",
+  tags: [
+    "React",
+    "Node.js",
+    "TypeScript",
+    "MongoDB",
+    "Redis",
+    "Tree-sitter",
+    "OpenRouter",
+    "Fly.io",
+    "QStash",
+    "Dodo Payments",
+  ],
+  live: "https://looksgoodtomeow.in/",
+},
+
 
   {
     title: "Edulume",
@@ -393,6 +377,13 @@ export const hackathons = [
     project: "Game Development",
     description:
       "National Level Gameathon - Developed innovative gameplay mechanics and AI systems.",
+  },
+  {
+    title: "Bugbash 2026",
+    position: "Runner-Up",
+    project: "LooksGoodToMeow",
+    description:
+      "National Level Hackathon - Built the very first version of LGTM here",
   },
   {
     title: "Hackhazards 2025",
